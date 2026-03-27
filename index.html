@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إنّ وأخواتها - العربية السهلة</title>
     
-    <!-- تضمين خط Readex Pro -->
+    <!-- ========================================== -->
+    <!-- 1. إعدادات الخطوط (Readex Pro حصريًا)      -->
+    <!-- ========================================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- تضمين Tailwind CSS -->
+    <!-- ========================================== -->
+    <!-- 2. إطار العمل (Tailwind CSS CDN)           -->
+    <!-- ========================================== -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- إعدادات Tailwind لتخصيص الخطوط والألوان -->
+    <!-- إعدادات Tailwind لتخصيص الخطوط وألوان الباستيل -->
     <script>
         tailwind.config = {
             theme: {
@@ -36,103 +40,155 @@
         }
     </script>
 
+    <!-- ========================================== -->
+    <!-- 3. التنسيقات الإضافية (Custom CSS)         -->
+    <!-- ========================================== -->
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
+        /* التمرير السلس */
+        html { scroll-behavior: smooth; }
         body {
-            background-color: #f8fafc;
+            background-color: #f8fafc; /* خلفية باستيل هادئة */
             -webkit-font-smoothing: antialiased;
         }
+        
+        /* تأثيرات ظهور الأقسام (Micro-interactions) */
         .tab-content {
             display: none;
-            animation: fadeIn 0.4s ease-in-out;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .tab-content.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        /* منع الضغط على الأزرار بعد الإجابة */
-        .disabled-btn {
-            pointer-events: none;
-        }
-        /* تكبير النص في الأسئلة لزيادة الوضوح */
+        
+        /* إخفاء شريط التمرير لقائمة التبويبات مع السماح بالتمرير الأفقي */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* تعطيل التفاعل مع الأزرار بعد الإجابة */
+        .disabled-btn { pointer-events: none; }
+        
+        /* حجم وتنسيق نص الأسئلة */
         .question-text {
             font-size: 1.35rem;
-            line-height: 2rem;
+            line-height: 2.2rem;
+        }
+
+        /* نافذة التقييم النهائي (Modal) */
+        .modal-overlay {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
         }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
 
-    <!-- الترويسة -->
-    <header class="w-full py-8 flex flex-col items-center justify-center bg-white border-b border-slate-100">
-        <a href="https://www.youtube.com/egysalah" target="_blank" class="group flex items-center gap-3 no-underline transition-transform hover:scale-105 bg-transparent">
-            <!-- شعار يوتيوب -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-red-600">
+    <!-- ========================================== -->
+    <!-- 4. الترويسة (Header) تختفي مع التمرير      -->
+    <!-- ========================================== -->
+    <header class="w-full py-8 flex flex-col items-center justify-center bg-transparent border-b border-slate-200/60">
+        <a href="https://www.youtube.com/egysalah" target="_blank" class="group flex flex-row items-center gap-3 no-underline transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+            <h1 class="text-4xl font-bold text-slate-800 group-hover:text-red-600 transition-colors duration-300 bg-transparent">العربية السهلة</h1>
+            <!-- شعار يوتيوب SVG نقي (بجوار النص) -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-red-600 transition-transform duration-300 group-hover:rotate-3">
                 <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
             </svg>
-            <h1 class="text-4xl font-bold text-slate-800 group-hover:text-red-600 transition-colors">العربية السهلة</h1>
         </a>
-        <p class="text-slate-500 mt-2 text-lg font-medium">محمود صلاح</p>
+        <p class="text-slate-500 mt-2 text-xl font-medium tracking-wide">محمود صلاح</p>
     </header>
 
-    <!-- شريط التنقل (التبويبات) -->
-    <nav class="w-full bg-white shadow-sm mb-8" id="nav-tabs">
-        <div class="max-w-4xl mx-auto px-4">
-            <ul id="tabs-list" class="flex justify-start sm:justify-center gap-2 sm:gap-6 overflow-x-auto hide-scrollbar py-1">
-                <!-- تُضاف التبويبات برمجيًا -->
+    <!-- ========================================== -->
+    <!-- 5. شريط التنقل (Tabs) ثابت بالكامل (Sticky)-->
+    <!-- ========================================== -->
+    <nav class="w-full bg-white/95 backdrop-blur-md shadow-sm mb-8 sticky top-0 z-50 flex flex-col" id="nav-tabs">
+        <div class="max-w-4xl mx-auto px-4 w-full">
+            <!-- التبويبات: نحيفة (py-2)، صف واحد (flex-nowrap)، تمرير أفقي -->
+            <ul id="tabs-list" class="flex justify-start sm:justify-center gap-2 sm:gap-4 overflow-x-auto flex-nowrap hide-scrollbar py-2 w-full">
+                <!-- تُضاف التبويبات برمجيًا هنا -->
             </ul>
+        </div>
+        <!-- شريط التقدم المدمج (Sticky Progress Bar) كخط نحيف جداً -->
+        <div class="w-full h-[3px] bg-slate-100">
+            <div id="section-progress-bar" class="bg-brand-500 h-full w-0 transition-all duration-500 ease-out"></div>
         </div>
     </nav>
 
-    <!-- المحتوى الرئيسي للأسئلة -->
+    <!-- ========================================== -->
+    <!-- 6. المحتوى الرئيسي (Main Content)          -->
+    <!-- ========================================== -->
     <main class="flex-grow w-full max-w-4xl mx-auto px-4 pb-16" id="main-content">
-        <!-- تُضاف الأقسام برمجيًا -->
+        <!-- تُضاف الأقسام والأسئلة برمجيًا هنا -->
     </main>
 
-    <!-- التذييل -->
-    <footer class="w-full py-6 bg-white border-t border-slate-200 mt-auto">
+    <!-- ========================================== -->
+    <!-- نافذة التقييم النهائي (تظهر عند الانتهاء)  -->
+    <!-- ========================================== -->
+    <div id="final-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 modal-overlay opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-brand-100 text-brand-600 rounded-full mb-4 shadow-sm">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">التقييم الشامل</h2>
+                <p class="text-slate-500 text-lg">لقد أتممت جميع التدريبات، إليك نتيجتك النهائية:</p>
+            </div>
+            
+            <div class="bg-slate-50 rounded-2xl p-6 mb-6 border border-slate-100 shadow-inner">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xl font-bold text-slate-700">الدرجة الإجمالية:</span>
+                    <span id="final-score-display" class="text-2xl font-bold text-brand-600">٠ / ٠</span>
+                </div>
+                <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+                    <div id="final-progress-bar" class="bg-brand-500 h-full rounded-full w-0 transition-all duration-1000"></div>
+                </div>
+                <p id="final-message" class="mt-6 text-center text-xl font-bold text-slate-800 leading-relaxed"></p>
+            </div>
+            
+            <button onclick="closeFinalModal()" class="w-full bg-slate-800 text-white text-xl font-bold py-4 rounded-xl hover:bg-slate-700 transition-colors duration-300 shadow-md hover:shadow-lg">
+                إغلاق والعودة للتدريبات
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 7. التذييل (Footer)                        -->
+    <!-- ========================================== -->
+    <footer class="w-full py-8 bg-white border-t border-slate-200 mt-auto">
         <div class="text-center">
-            <a href="https://www.youtube.com/egysalah" target="_blank" class="text-slate-500 hover:text-brand-600 font-medium transition-colors font-bold">
+            <a href="https://www.youtube.com/egysalah" target="_blank" class="text-slate-500 hover:text-brand-600 font-bold text-lg transition-colors">
                 جميع الحقوق محفوظة لقناة العربية السهلة
             </a>
         </div>
     </footer>
 
-    <!-- المنطق البرمجي وبيانات الأسئلة -->
+    <!-- ========================================== -->
+    <!-- 8. المنطق البرمجي (JavaScript)             -->
+    <!-- ========================================== -->
     <script>
-        // دالة تحويل الأرقام للعرض باللغة العربية
+        // دالة تحويل الأرقام الإنجليزية للعرض باللغة العربية (١، ٢، ٣)
         const toEasternNum = (num) => {
             return num.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
         };
 
-        // قاعدة بيانات المحتوى كاملة ومدققة لغويًا
+        // قاعدة بيانات المحتوى كاملة ومدققة لغويًا (متدرجة الصعوبة)
         const quizData = [
             {
                 id: 'meanings',
                 title: 'معاني الحروف',
                 questions: [
                     {
-                        q: 'في جملة (إنّ العلمَ نورٌ)، تفيد (إنّ):',
+                        q: 'يفيد الحرف (إنّ) في جملة (إنّ العلمَ نورٌ):',
                         type: 'mcq',
                         options: ['التوكيد', 'التمني', 'الترجي'],
                         correct: 'التوكيد',
-                        hint: 'تذكر أن هذا الحرف يؤكد المعنى ويزيل أي شك لدى السامع.',
+                        hint: 'يؤكد هذا الحرف المعنى ويزيل أي شك لدى السامع.',
                         exp: 'الحرفان (إنّ) و(أنّ) يفيدان التوكيد.'
                     },
                     {
-                        q: 'كأنّ الجنديَ أسدٌ في شجاعته. الحرف (كأنّ) يفيد:',
+                        q: 'كأنّ الجنديَ أسدٌ. يفيد الحرف (كأنّ):',
                         type: 'mcq',
                         options: ['الاستدراك', 'التوكيد', 'التشبيه'],
                         correct: 'التشبيه',
@@ -140,7 +196,7 @@
                         exp: '(كأنّ) حرف ناسخ يفيد التشبيه.'
                     },
                     {
-                        q: 'الجو باردٌ لكنّ السماءَ صافيةٌ. الحرف (لكنّ) يفيد:',
+                        q: 'الجو باردٌ لكنّ السماءَ صافيةٌ. يفيد الحرف (لكنّ):',
                         type: 'mcq',
                         options: ['الترجي', 'الاستدراك', 'التمني'],
                         correct: 'الاستدراك',
@@ -161,7 +217,7 @@
                         options: ['صواب', 'خطأ'],
                         correct: 'صواب',
                         hint: 'قارن بين هذا الحرف وبين الحرف (ليت).',
-                        exp: '(لعلّ) تفيد الترجي بالفعل، على عكس (ليت) التي تفيد التمني.'
+                        exp: '(لعلّ) تفيد الترجي فعلًا، على عكس (ليت) التي تفيد التمني.'
                     },
                     {
                         q: 'تفيد (أنّ) التشبيه في الجملة الاسمية.',
@@ -170,6 +226,22 @@
                         correct: 'خطأ',
                         hint: 'حروف التوكيد تبدأ بالهمزة دائمًا.',
                         exp: '(أنّ) تفيد التوكيد، أما الحرف الذي يفيد التشبيه فهو (كأنّ).'
+                    },
+                    {
+                        q: '(..... الامتحانَ سهلٌ). الحرف المناسب للتمني هو:',
+                        type: 'mcq',
+                        options: ['ليت', 'لعلّ', 'كأنّ'],
+                        correct: 'ليت',
+                        hint: 'اقرأ الجملة وابحث عن الحرف الذي يفيد الرغبة في أمر صعب.',
+                        exp: '(ليت) هو الحرف المناسب لأنه يفيد التمني.'
+                    },
+                    {
+                        q: 'الشمس ساطعة (.....) الجوَّ باردٌ. الحرف المناسب للاستدراك هو:',
+                        type: 'mcq',
+                        options: ['لكنّ', 'إنّ', 'لعلّ'],
+                        correct: 'لكنّ',
+                        hint: 'ابحث عن الحرف الذي يربط الجملتين ويزيل التناقض الظاهري.',
+                        exp: '(لكنّ) هو الحرف الذي يفيد الاستدراك لربط المعنى وتصحيح الفهم.'
                     }
                 ]
             },
@@ -186,7 +258,7 @@
                         exp: 'تدخل هذه الحروف على الجملة الاسمية (المبتدأ والخبر) فقط.'
                     },
                     {
-                        q: 'عند دخول (إنّ) أو إحدى أخواتها على الجملة الاسمية، فإنها:',
+                        q: 'عند دخول (إنّ) على الجملة الاسمية، فإنها:',
                         type: 'mcq',
                         options: ['تنصب المبتدأ وترفع الخبر', 'ترفع المبتدأ وتنصب الخبر', 'تنصب المبتدأ والخبر معًا'],
                         correct: 'تنصب المبتدأ وترفع الخبر',
@@ -206,16 +278,32 @@
                         type: 'mcq',
                         options: ['خبر الحرف الناسخ', 'نعتًا مرفوعًا', 'مضافًا إليه'],
                         correct: 'خبر الحرف الناسخ',
-                        hint: 'يبقى مرفوعًا ولكن تتغير نسبته في الإعراب.',
+                        hint: 'يبقى الخبر مرفوعًا ولكن تتغير تسميته في الإعراب.',
                         exp: 'يرفع الحرف الناسخ الخبر، ويسمى (خبرها).'
                     },
                     {
-                        q: 'إنّ وأخواتها تغير إعراب الجملة الاسمية، ولذلك تسمى حروفًا:',
+                        q: 'تسمى هذه الحروف (ناسخة) لأنها:',
                         type: 'mcq',
-                        options: ['ناسخة', 'عاطفة', 'جازمة'],
-                        correct: 'ناسخة',
+                        options: ['تغير إعراب الجملة', 'تحذف المبتدأ', 'تنفي الخبر'],
+                        correct: 'تغير إعراب الجملة',
                         hint: 'النسخ في اللغة يعني التغيير والإزالة.',
                         exp: 'تسمى حروفًا ناسخة لأنها تنسخ (تغير) حكم المبتدأ من الرفع إلى النصب.'
+                    },
+                    {
+                        q: 'الجملة الصحيحة بعد إدخال (إنّ) على (المعلمون مخلصون):',
+                        type: 'mcq',
+                        options: ['إنّ المعلمين مخلصون', 'إنّ المعلمون مخلصين', 'إنّ المعلمين مخلصين'],
+                        correct: 'إنّ المعلمين مخلصون',
+                        hint: 'تذكر أن المبتدأ ينصب (بالياء لأنه جمع)، والخبر يبقى مرفوعًا (بالواو).',
+                        exp: '(المعلمين) اسم إن منصوب بالياء، و(مخلصون) خبر إن مرفوع بالواو.'
+                    },
+                    {
+                        q: 'تؤثر (إنّ وأخواتها) على الجملة الفعلية.',
+                        type: 'tf',
+                        options: ['صواب', 'خطأ'],
+                        correct: 'خطأ',
+                        hint: 'تذكر اختصاص هذه الحروف.',
+                        exp: 'هذه الحروف تختص بالدخول على الجملة الاسمية فقط ولا تدخل على الفعلية.'
                     }
                 ]
             },
@@ -234,7 +322,7 @@
                     {
                         q: 'ليت الطالبين ناجحان. علامة نصب اسم ليت:',
                         type: 'mcq',
-                        options: ['الألف', 'الياء', 'الكسرة'],
+                        options: ['الياء', 'الألف', 'الكسرة'],
                         correct: 'الياء',
                         hint: 'الكلمة تدل على اثنين (مثنى).',
                         exp: '(الطالبين) مثنى، وعلامة نصبه الياء.'
@@ -250,7 +338,7 @@
                     {
                         q: 'إنّ الأمهاتِ رحيماتٌ. علامة نصب اسم إنّ:',
                         type: 'mcq',
-                        options: ['الفتحة', 'الكسرة', 'السكون'],
+                        options: ['الكسرة', 'الفتحة', 'السكون'],
                         correct: 'الكسرة',
                         hint: 'الكلمة جمع مؤنث سالم، وله علامة نصب فرعية مميزة.',
                         exp: '(الأمهاتِ) اسم إن منصوب وعلامة نصبه الكسرة نيابة عن الفتحة لأنه جمع مؤنث سالم.'
@@ -258,7 +346,7 @@
                     {
                         q: 'كأنّ ..... أسدٌ. الكلمة المناسبة لملء الفراغ:',
                         type: 'mcq',
-                        options: ['أبوك', 'أبيك', 'أباك'],
+                        options: ['أباك', 'أبوك', 'أبيك'],
                         correct: 'أباك',
                         hint: 'اسم كأنّ يكون منصوبًا، والأسماء الخمسة تنصب بعلامة خاصة.',
                         exp: '(أباك) اسم كأنّ منصوب وعلامة نصبه الألف لأنه من الأسماء الخمسة.'
@@ -272,12 +360,20 @@
                         exp: '(كاف الخطاب) ضمير متصل مبني في محل نصب اسم إنّ.'
                     },
                     {
-                        q: 'الضمير المتصل بحرف من أخوات (إنّ) يكون دائمًا في محل رفع اسمها.',
+                        q: 'الضمير المتصل بحرف من أخوات (إنّ) يكون دائمًا في محل نصب اسمها.',
                         type: 'tf',
                         options: ['صواب', 'خطأ'],
-                        correct: 'خطأ',
+                        correct: 'صواب',
                         hint: 'تذكر عمل إنّ وأخواتها في المبتدأ (الاسم).',
-                        exp: 'الضمير المتصل يكون دائمًا في محل (نصب) اسم إنّ وليس في محل رفع.'
+                        exp: 'الضمير المتصل يكون دائمًا في محل نصب اسم إنّ.'
+                    },
+                    {
+                        q: 'إعراب اسم (لعلّ) في جملة (لعلّ أخاك قادمٌ):',
+                        type: 'mcq',
+                        options: ['منصوب بالألف', 'منصوب بالفتحة', 'مرفوع بالواو'],
+                        correct: 'منصوب بالألف',
+                        hint: 'كلمة (أخا) من الأسماء الخمسة، تذكر علامة نصبها.',
+                        exp: 'كلمة (أخا) اسم لعلّ منصوب وعلامة نصبه الألف لأنه من الأسماء الخمسة.'
                     }
                 ]
             },
@@ -304,7 +400,7 @@
                     {
                         q: 'إنّ الحديقةَ (أشجارُها مثمرةٌ). نوع الخبر:',
                         type: 'mcq',
-                        options: ['مفرد', 'جملة فعلية', 'جملة اسمية'],
+                        options: ['جملة اسمية', 'مفرد', 'جملة فعلية'],
                         correct: 'جملة اسمية',
                         hint: 'الخبر يبدأ باسم + هاء، فكّر!',
                         exp: 'الخبر الجملة الاسمية (أشجارُها مثمرةٌ) المكونة من مبتدأ وخبر.'
@@ -320,7 +416,7 @@
                     {
                         q: 'إنّ النظافةَ (من الإيمان). نوع الخبر:',
                         type: 'mcq',
-                        options: ['مفرد', 'شبه جملة (جار ومجرور)', 'جملة اسمية'],
+                        options: ['شبه جملة (جار ومجرور)', 'مفرد', 'جملة اسمية'],
                         correct: 'شبه جملة (جار ومجرور)',
                         hint: 'انظر إلى الكلمة الأولى بين القوسين.',
                         exp: 'الخبر شبه جملة لأنه مكون من حرف جر (من) واسم مجرور (الإيمان).'
@@ -336,7 +432,7 @@
                     {
                         q: 'لعلّ (في السفرِ) الخيرَ. نوع الخبر:',
                         type: 'mcq',
-                        options: ['مفرد', 'شبه جملة (جار ومجرور)', 'جملة فعلية'],
+                        options: ['شبه جملة (جار ومجرور)', 'مفرد', 'جملة فعلية'],
                         correct: 'شبه جملة (جار ومجرور)',
                         hint: 'الخبر هنا تقدم على الاسم، وبدأ بحرف جر.',
                         exp: 'الخبر شبه جملة لأنه مكون من الجار والمجرور (في السفرِ).'
@@ -353,17 +449,26 @@
             }
         ];
 
-        let appState = {};
+        // حالة التطبيق لمتابعة الدرجات والأسئلة المجابة في كل قسم
+        let appState = {
+            sections: {},
+            totalOverallQuestions: 0
+        };
 
+        // تهيئة البيانات
         function initAppState() {
             quizData.forEach(sec => {
-                appState[sec.id] = {
+                appState.sections[sec.id] = {
                     score: 0,
+                    answeredCount: 0,
+                    totalQuestions: sec.questions.length,
                     answeredQuestions: new Set()
                 };
+                appState.totalOverallQuestions += sec.questions.length;
             });
         }
 
+        // بناء الواجهة الرئيسية (التبويبات والأقسام)
         function renderApp() {
             const tabsList = document.getElementById('tabs-list');
             const mainContent = document.getElementById('main-content');
@@ -375,62 +480,67 @@
                 const isFirst = index === 0;
                 const isLast = index === quizData.length - 1;
 
-                // التبويبات
+                // ================== بناء التبويبات ==================
+                // إضافة كلاسات منع الالتفاف (whitespace-nowrap) للتمرير الأفقي
                 const li = document.createElement('li');
-                li.className = 'whitespace-nowrap';
+                li.className = 'whitespace-nowrap shrink-0';
                 li.innerHTML = `
-                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-4 py-3 text-lg font-bold border-b-4 transition-all duration-200 ${isFirst ? 'border-brand-600 text-brand-700' : 'border-transparent text-slate-500 hover:text-brand-600 hover:border-brand-200'}">
+                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-5 py-2 text-lg font-bold border-b-[4px] transition-all duration-300 hover:text-brand-600 ${isFirst ? 'border-brand-600 text-brand-700' : 'border-transparent text-slate-500 hover:border-brand-200'}">
                         ${sec.title}
                     </button>
                 `;
                 tabsList.appendChild(li);
 
-                // محتوى القسم
+                // ================== بناء محتوى القسم ==================
                 const sectionDiv = document.createElement('div');
                 sectionDiv.id = `panel-${sec.id}`;
                 sectionDiv.className = `tab-content ${isFirst ? 'active' : ''}`;
 
+                // عنوان التطبيق يظهر في التبويب الأول فقط أسفل التبويبات مباشرة
                 if (isFirst) {
                     sectionDiv.innerHTML += `
-                        <div class="text-center mb-10">
-                            <h2 class="text-3xl sm:text-4xl font-bold text-brand-900 mb-4">إنّ وأخواتها</h2>
-                            <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto font-medium">
+                        <div class="text-center mb-10 animation-fadeIn pt-4">
+                            <h2 class="text-4xl sm:text-5xl font-bold text-brand-900 mb-5">إنّ وأخواتها</h2>
+                            <p class="text-slate-600 text-xl leading-relaxed max-w-2xl mx-auto font-medium">
                                 مرحبًا بك في هذا التطبيق التفاعلي. اقرأ الأسئلة بعناية، واختر الإجابة الصحيحة. 
-                                يمكنك الاستعانة بـ (التلميح) إذا واجهت صعوبة.
+                                يمكنك الاستعانة بـ (التلميح 💡) إذا واجهت صعوبة.
                             </p>
                         </div>
                     `;
                 }
 
-                // الأسئلة
+                // ================== بناء الأسئلة ==================
                 const questionsHTML = sec.questions.map((q, qIndex) => `
-                    <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-6" id="card-${sec.id}-${qIndex}">
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm hover:shadow-md border border-slate-200 mb-6 transition-shadow duration-300" id="card-${sec.id}-${qIndex}">
                         <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-5">
                             <h3 class="question-text font-bold text-slate-800">
                                 <span class="text-brand-600 me-1">السؤال ${toEasternNum(qIndex + 1)}:</span>
                                 ${q.q}
                             </h3>
-                            <button onclick="toggleHint('${sec.id}', ${qIndex})" class="flex items-center gap-1.5 text-amber-600 bg-amber-50 px-4 py-2 rounded-xl hover:bg-amber-100 transition-colors shrink-0 font-bold">
+                            <button onclick="toggleHint('${sec.id}', ${qIndex})" class="flex items-center gap-2 text-amber-600 bg-amber-50 px-5 py-2.5 rounded-xl hover:bg-amber-100 transition-colors duration-300 shrink-0 font-bold shadow-sm hover:shadow">
                                 💡 تلميح
                             </button>
                         </div>
                         
-                        <div id="hint-${sec.id}-${qIndex}" class="hidden mb-6 p-4 bg-amber-50 border border-amber-100 text-amber-800 rounded-xl text-lg font-medium leading-relaxed">
+                        <!-- صندوق التلميح -->
+                        <div id="hint-${sec.id}-${qIndex}" class="hidden mb-6 p-5 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl text-lg font-medium leading-relaxed transform transition-all duration-300">
                             ${q.hint}
                         </div>
 
+                        <!-- أزرار الخيارات -->
                         <div class="flex flex-wrap gap-3 mb-2" id="opts-${sec.id}-${qIndex}">
                             ${q.options.map(opt => `
-                                <button onclick="selectAnswer('${sec.id}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[140px] text-xl font-bold bg-slate-50 border-2 border-slate-100 text-slate-700 py-3 px-5 rounded-xl hover:bg-slate-100 hover:border-slate-300 transition-all text-center">
+                                <button onclick="selectAnswer('${sec.id}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[150px] text-xl font-bold bg-slate-50 border-2 border-slate-200 text-slate-700 py-3.5 px-6 rounded-2xl hover:bg-slate-100 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm transform hover:-translate-y-0.5 transition-all duration-200 text-center">
                                     ${opt}
                                 </button>
                             `).join('')}
                         </div>
 
-                        <div id="feedback-${sec.id}-${qIndex}" class="hidden mt-6 pt-5 border-t border-slate-100">
-                            <div id="res-msg-${sec.id}-${qIndex}" class="font-bold text-xl mb-3 flex items-center gap-2"></div>
-                            <div class="text-slate-700 font-medium leading-relaxed text-lg bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                <span class="font-bold text-brand-700">التوضيح:</span> ${q.exp}
+                        <!-- التغذية الراجعة والشرح -->
+                        <div id="feedback-${sec.id}-${qIndex}" class="hidden mt-6 pt-6 border-t border-slate-100">
+                            <div id="res-msg-${sec.id}-${qIndex}" class="font-bold text-2xl mb-4 flex items-center gap-2"></div>
+                            <div class="text-slate-700 font-medium leading-relaxed text-lg bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                                <span class="font-bold text-brand-700 text-xl inline-block mb-1">التوضيح:</span><br> ${q.exp}
                             </div>
                         </div>
                     </div>
@@ -438,38 +548,61 @@
 
                 sectionDiv.innerHTML += questionsHTML;
 
-                // زر الانتقال للقسم التالي
-                let nextButtonHTML = '';
+                // ================== أزرار نهاية القسم ==================
+                let endButtonsHTML = '';
+                
+                // زر إعادة المحاولة (موجود دائماً)
+                endButtonsHTML += `
+                    <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-8 py-3.5 rounded-2xl hover:bg-slate-700 hover:shadow-md transform hover:-translate-y-1 transition-all duration-300 font-bold flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        إعادة المحاولة
+                    </button>
+                `;
+
+                // زر الانتقال للقسم التالي (إذا لم يكن القسم الأخير)
                 if (!isLast) {
                     const nextSecId = quizData[index + 1].id;
-                    nextButtonHTML = `
-                        <button onclick="goToNextSection('${nextSecId}')" class="bg-brand-600 text-white px-6 py-3 rounded-xl hover:bg-brand-700 transition-colors font-bold flex items-center gap-2">
+                    endButtonsHTML += `
+                        <button onclick="goToNextSection('${nextSecId}')" class="bg-brand-600 text-white px-8 py-3.5 rounded-2xl hover:bg-brand-700 hover:shadow-md transform hover:-translate-y-1 transition-all duration-300 font-bold flex items-center gap-2">
                             القسم التالي
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        </button>
+                    `;
+                } else {
+                    // في القسم الأخير، زر التقييم الشامل (مخفي حتى الانتهاء)
+                    endButtonsHTML += `
+                        <button onclick="showFinalEvaluation()" id="btn-final-eval" class="hidden bg-emerald-600 text-white px-8 py-3.5 rounded-2xl hover:bg-emerald-700 hover:shadow-md transform hover:-translate-y-1 transition-all duration-300 font-bold flex items-center gap-2">
+                            عرض النتيجة النهائية
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </button>
                     `;
                 }
 
-                // التذييل وإعادة المحاولة وزر القسم التالي
                 sectionDiv.innerHTML += `
-                    <div class="flex flex-col sm:flex-row items-center justify-between mt-10 p-6 sm:p-8 bg-white rounded-2xl shadow-sm border border-slate-200">
-                        <div class="text-2xl font-bold text-slate-800 mb-6 sm:mb-0">
-                            نتيجة القسم: <span id="score-${sec.id}" class="text-brand-600">٠</span> / ${toEasternNum(sec.questions.length)}
+                    <div class="flex flex-col sm:flex-row items-center justify-between mt-10 p-6 sm:p-8 bg-white rounded-3xl shadow-sm border border-slate-200">
+                        <div class="text-2xl font-bold text-slate-800 mb-6 sm:mb-0 bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
+                            النتيجة: <span id="score-${sec.id}" class="text-brand-600">٠</span> / ${toEasternNum(sec.questions.length)}
                         </div>
-                        <div class="flex flex-wrap items-center justify-center gap-3">
-                            <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-6 py-3 rounded-xl hover:bg-slate-700 transition-colors font-bold flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                                إعادة المحاولة
-                            </button>
-                            ${nextButtonHTML}
+                        <div class="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
+                            ${endButtonsHTML}
                         </div>
                     </div>
                 `;
 
                 mainContent.appendChild(sectionDiv);
             });
+            
+            // تهيئة شريط التقدم للقسم الأول عند تحميل التطبيق
+            if (quizData.length > 0) {
+                updateProgress(quizData[0].id);
+            }
         }
 
+        // ==========================================
+        // وظائف التفاعل والملاحة
+        // ==========================================
+
+        // التبديل بين التبويبات
         function switchTab(targetId) {
             document.querySelectorAll('.tab-content').forEach(panel => {
                 panel.classList.remove('active');
@@ -484,103 +617,236 @@
             const activeBtn = document.getElementById(`btn-${targetId}`);
             activeBtn.classList.remove('border-transparent', 'text-slate-500');
             activeBtn.classList.add('border-brand-600', 'text-brand-700');
+            
+            // تمرير التبويبات نفسها (أفقيًا) لضمان رؤية التبويب النشط على الجوال
+            activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            
+            // تحديث شريط التقدم العلوي ليعكس تقدم القسم الحالي
+            updateProgress(targetId);
         }
 
-        // دالة الانتقال للقسم التالي مع رفع الشاشة للأعلى
+        // الانتقال السلس للقسم التالي
         function goToNextSection(targetId) {
             switchTab(targetId);
-            document.getElementById('nav-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // تأخير زمني بسيط لضمان تحديث أبعاد الصفحة، ثم التمرير لمستوى شريط التبويبات
+            setTimeout(() => {
+                const navTabs = document.getElementById('nav-tabs');
+                window.scrollTo({
+                    top: navTabs.offsetTop,
+                    behavior: 'smooth'
+                });
+            }, 50);
         }
 
+        // إظهار/إخفاء التلميح
         function toggleHint(secId, qIndex) {
             const hintDiv = document.getElementById(`hint-${secId}-${qIndex}`);
             if (hintDiv.classList.contains('hidden')) {
                 hintDiv.classList.remove('hidden');
-                hintDiv.classList.add('block');
+                hintDiv.classList.add('block', 'animate-[fadeIn_0.3s_ease-out]');
             } else {
                 hintDiv.classList.add('hidden');
-                hintDiv.classList.remove('block');
+                hintDiv.classList.remove('block', 'animate-[fadeIn_0.3s_ease-out]');
             }
         }
 
+        // ==========================================
+        // منطق تقييم الإجابات
+        // ==========================================
         function selectAnswer(secId, qIndex, selectedOpt) {
-            if (appState[secId].answeredQuestions.has(qIndex)) return;
+            const state = appState.sections[secId];
             
-            appState[secId].answeredQuestions.add(qIndex);
+            // منع تكرار الإجابة
+            if (state.answeredQuestions.has(qIndex)) return;
+            state.answeredQuestions.add(qIndex);
+            state.answeredCount += 1;
             
             const section = quizData.find(s => s.id === secId);
             const question = section.questions[qIndex];
             const isCorrect = selectedOpt === question.correct;
 
             if (isCorrect) {
-                appState[secId].score += 1;
+                state.score += 1;
             }
 
+            // تحديث واجهة الأزرار (تلوين الصحيح والخاطئ وتعطيل الباقي)
             const optsContainer = document.getElementById(`opts-${secId}-${qIndex}`);
             const buttons = optsContainer.querySelectorAll('button');
             
             buttons.forEach(btn => {
                 btn.classList.add('disabled-btn');
-                btn.classList.remove('hover:bg-slate-100', 'hover:border-slate-300', 'bg-slate-50', 'text-slate-700');
+                btn.classList.remove('hover:bg-slate-100', 'hover:border-brand-300', 'hover:text-brand-700', 'hover:-translate-y-0.5', 'hover:shadow-sm');
                 
                 if (btn.innerText.trim() === question.correct) {
-                    btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-700', 'font-bold');
+                    // اللون الأخضر للصحيح دائمًا
+                    btn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                    btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-700', 'shadow-md');
                 } else if (btn.innerText.trim() === selectedOpt && !isCorrect) {
+                    // اللون الأحمر للخاطئ الذي اختاره المستخدم فقط
+                    btn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
                     btn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-700');
                 } else {
-                    btn.classList.add('opacity-50', 'bg-slate-50', 'border-slate-200');
+                    // تبهيت الخيارات الأخرى
+                    btn.classList.add('opacity-40');
                 }
             });
 
+            // إظهار التغذية الراجعة والشرح
             const feedbackDiv = document.getElementById(`feedback-${secId}-${qIndex}`);
             const resMsg = document.getElementById(`res-msg-${secId}-${qIndex}`);
             
             feedbackDiv.classList.remove('hidden');
             feedbackDiv.classList.add('block', 'animate-[fadeIn_0.5s_ease-in-out]');
 
+            // إجابة صحيحة / إجابة خاطئة (دون استخدام كلمة صواب/خطأ)
             if (isCorrect) {
                 resMsg.innerHTML = `
-                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                     <span class="text-emerald-600">(إجابة صحيحة)</span>
                 `;
             } else {
                 resMsg.innerHTML = `
-                    <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <svg class="w-8 h-8 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                     <span class="text-rose-600">(إجابة خاطئة)</span>
                 `;
             }
 
-            document.getElementById(`score-${secId}`).innerText = toEasternNum(appState[secId].score);
+            // تحديث واجهة النتيجة والتقدم للقسم
+            document.getElementById(`score-${secId}`).innerText = toEasternNum(state.score);
+            updateProgress(secId);
+            checkOverallCompletion();
         }
 
+        // تحديث شريط التقدم المدمج أسفل التبويبات
+        function updateProgress(secId) {
+            const state = appState.sections[secId];
+            const percentage = Math.round((state.answeredCount / state.totalQuestions) * 100);
+            document.getElementById('section-progress-bar').style.width = `${percentage}%`;
+        }
+
+        // تصفير القسم بالكامل (إعادة المحاولة)
         function retrySection(secId) {
-            appState[secId].score = 0;
-            appState[secId].answeredQuestions.clear();
+            const state = appState.sections[secId];
+            state.score = 0;
+            state.answeredCount = 0;
+            state.answeredQuestions.clear();
 
             document.getElementById(`score-${secId}`).innerText = toEasternNum(0);
+            updateProgress(secId);
 
             const section = quizData.find(s => s.id === secId);
             
             section.questions.forEach((q, qIndex) => {
+                // إخفاء التغذية الراجعة والتلميحات
                 const feedbackDiv = document.getElementById(`feedback-${secId}-${qIndex}`);
                 feedbackDiv.classList.add('hidden');
                 feedbackDiv.classList.remove('block', 'animate-[fadeIn_0.5s_ease-in-out]');
                 
                 const hintDiv = document.getElementById(`hint-${secId}-${qIndex}`);
                 hintDiv.classList.add('hidden');
-                hintDiv.classList.remove('block');
+                hintDiv.classList.remove('block', 'animate-[fadeIn_0.3s_ease-out]');
 
+                // إعادة تهيئة أزرار الخيارات
                 const optsContainer = document.getElementById(`opts-${secId}-${qIndex}`);
                 optsContainer.innerHTML = q.options.map(opt => `
-                    <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[140px] text-xl font-bold bg-slate-50 border-2 border-slate-100 text-slate-700 py-3 px-5 rounded-xl hover:bg-slate-100 hover:border-slate-300 transition-all text-center">
+                    <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[150px] text-xl font-bold bg-slate-50 border-2 border-slate-200 text-slate-700 py-3.5 px-6 rounded-2xl hover:bg-slate-100 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm transform hover:-translate-y-0.5 transition-all duration-200 text-center">
                         ${opt}
                     </button>
                 `).join('');
             });
             
-            document.getElementById(`panel-${secId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // التمرير التلقائي لمستوى شريط التبويبات مع التأخير البسيط لضمان السلاسة
+            setTimeout(() => {
+                const navTabs = document.getElementById('nav-tabs');
+                window.scrollTo({
+                    top: navTabs.offsetTop,
+                    behavior: 'smooth'
+                });
+            }, 50);
+            
+            checkOverallCompletion();
         }
 
+        // ==========================================
+        // التقييم النهائي الشامل
+        // ==========================================
+
+        // التحقق من إنهاء جميع الأسئلة لإظهار زر النتيجة
+        function checkOverallCompletion() {
+            let totalAnswered = 0;
+            for (const key in appState.sections) {
+                totalAnswered += appState.sections[key].answeredCount;
+            }
+            
+            const finalBtn = document.getElementById('btn-final-eval');
+            if (finalBtn) {
+                if (totalAnswered === appState.totalOverallQuestions) {
+                    finalBtn.classList.remove('hidden');
+                } else {
+                    finalBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        // إظهار نافذة التقييم الشامل (Modal)
+        function showFinalEvaluation() {
+            let totalScore = 0;
+            for (const key in appState.sections) {
+                totalScore += appState.sections[key].score;
+            }
+            
+            const percentage = Math.round((totalScore / appState.totalOverallQuestions) * 100);
+            
+            // عرض الدرجات بالأرقام العربية
+            document.getElementById('final-score-display').innerText = `${toEasternNum(totalScore)} / ${toEasternNum(appState.totalOverallQuestions)}`;
+            
+            // رسالة تحفيزية خالية من المبالغة في التنوين
+            let message = '';
+            if (percentage === 100) {
+                message = 'مستوى متميز جدًا! لقد أتقنت جميع قواعد الدرس ببراعة.';
+            } else if (percentage >= 85) {
+                message = 'مستوى جيد جدًا! استيعابك للقواعد ممتاز، استمر في تفوقك.';
+            } else if (percentage >= 70) {
+                message = 'مستوى جيد! إجاباتك موفقة، راجع التوضيحات لتلافي الأخطاء البسيطة.';
+            } else {
+                message = 'تحتاج إلى مراجعة الدرس مرة أخرى، لا تيأس وحاول من جديد!';
+            }
+            
+            document.getElementById('final-message').innerText = message;
+            
+            // إظهار النافذة مع التأثيرات
+            const modal = document.getElementById('final-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            // تأخير بسيط للسماح بتطبيق الـ display block قبل تحريك الـ opacity
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+                
+                // تحريك شريط التقدم النهائي
+                document.getElementById('final-progress-bar').style.width = `${percentage}%`;
+            }, 10);
+        }
+
+        // إغلاق النافذة
+        function closeFinalModal() {
+            const modal = document.getElementById('final-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            // إخفاء الـ div بعد انتهاء الحركة
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('final-progress-bar').style.width = '0%';
+            }, 300);
+        }
+
+        // تهيئة التطبيق عند بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             initAppState();
             renderApp();
@@ -589,5 +855,3 @@
     </script>
 </body>
 </html>
-
-
