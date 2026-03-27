@@ -97,15 +97,15 @@
 
     <!-- 5. شريط التبويبات والتقدم (Sticky) -->
     <nav id="sticky-nav" class="w-full bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 flex flex-col transition-all">
-        <!-- شريط التقدم في أعلى الشاشة تماماً -->
-        <div class="w-full h-[3px] bg-slate-100">
-            <div id="global-progress-bar" class="bg-brand-500 h-full w-0 transition-all duration-500 ease-out shadow-[0_0_8px_rgba(14,165,233,0.6)]"></div>
-        </div>
         <!-- التبويبات: نحيفة (py-2)، صف واحد لا يلتف، تمرير أفقي -->
         <div class="max-w-5xl mx-auto px-4 w-full">
             <ul id="tabs-list" class="flex justify-start sm:justify-center gap-2 sm:gap-6 overflow-x-auto whitespace-nowrap flex-nowrap hide-scrollbar py-2">
                 <!-- تُدرج الأقسام برمجياً -->
             </ul>
+        </div>
+        <!-- شريط التقدم أسفل التبويبات -->
+        <div class="w-full h-[3px] bg-slate-100">
+            <div id="global-progress-bar" class="bg-brand-500 h-full w-0 transition-all duration-500 ease-out shadow-[0_0_8px_rgba(14,165,233,0.6)]"></div>
         </div>
     </nav>
 
