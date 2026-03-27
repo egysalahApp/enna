@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درس إنّ وأخواتها - العربية السهلة</title>
+    <title>إنّ وأخواتها - العربية السهلة</title>
     
     <!-- تضمين خط Readex Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,12 +37,11 @@
     </script>
 
     <style>
-        /* تحسينات إضافية للتمرير والانتقالات */
         html {
             scroll-behavior: smooth;
         }
         body {
-            background-color: #f8fafc; /* لون باستيل رمادي مزرق فاتح جداً */
+            background-color: #f8fafc;
             -webkit-font-smoothing: antialiased;
         }
         .tab-content {
@@ -56,7 +55,6 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* إخفاء شريط التمرير الأفقي لقائمة التبويبات */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -64,14 +62,23 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        /* منع الضغط على الأزرار بعد الإجابة */
+        .disabled-btn {
+            pointer-events: none;
+        }
+        /* تكبير النص في الأسئلة لزيادة الوضوح */
+        .question-text {
+            font-size: 1.35rem;
+            line-height: 2rem;
+        }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
 
-    <!-- الترويسة (Header) تتحرك مع التمرير -->
+    <!-- الترويسة -->
     <header class="w-full py-8 flex flex-col items-center justify-center bg-white border-b border-slate-100">
-        <a href="https://www.youtube.com/egysalah" target="_blank" class="group flex items-center gap-3 no-underline transition-transform hover:scale-105">
-            <!-- شعار يوتيوب SVG -->
+        <a href="https://www.youtube.com/egysalah" target="_blank" class="group flex items-center gap-3 no-underline transition-transform hover:scale-105 bg-transparent">
+            <!-- شعار يوتيوب -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-red-600">
                 <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
             </svg>
@@ -80,131 +87,272 @@
         <p class="text-slate-500 mt-2 text-lg font-medium">محمود صلاح</p>
     </header>
 
-    <!-- شريط التنقل (Tabs) -->
+    <!-- شريط التنقل (التبويبات) -->
     <nav class="w-full bg-white shadow-sm mb-8">
         <div class="max-w-4xl mx-auto px-4">
             <ul id="tabs-list" class="flex justify-start sm:justify-center gap-2 sm:gap-6 overflow-x-auto hide-scrollbar py-1">
-                <!-- سيتم إدراج التبويبات هنا عبر JS -->
+                <!-- تُضاف التبويبات برمجيًا -->
             </ul>
         </div>
     </nav>
 
-    <!-- المحتوى الرئيسي -->
+    <!-- المحتوى الرئيسي للأسئلة -->
     <main class="flex-grow w-full max-w-4xl mx-auto px-4 pb-16" id="main-content">
-        <!-- سيتم إدراج الأقسام والأسئلة هنا عبر JS -->
+        <!-- تُضاف الأقسام برمجيًا -->
     </main>
 
-    <!-- التذييل (Footer) -->
+    <!-- التذييل -->
     <footer class="w-full py-6 bg-white border-t border-slate-200 mt-auto">
         <div class="text-center">
-            <a href="https://www.youtube.com/egysalah" target="_blank" class="text-slate-500 hover:text-brand-600 font-medium transition-colors">
+            <a href="https://www.youtube.com/egysalah" target="_blank" class="text-slate-500 hover:text-brand-600 font-medium transition-colors font-bold">
                 جميع الحقوق محفوظة لقناة العربية السهلة
             </a>
         </div>
     </footer>
 
-    <!-- المنطق البرمجي والمحتوى التعليمي -->
+    <!-- المنطق البرمجي وبيانات الأسئلة -->
     <script>
-        // دالة لتحويل الأرقام الإنجليزية إلى أرقام عربية (مشرقية) للعرض فقط
+        // دالة تحويل الأرقام للعرض باللغة العربية
         const toEasternNum = (num) => {
             return num.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
         };
 
-        // قاعدة بيانات الأسئلة مقسمة إلى أقسام
+        // قاعدة بيانات المحتوى كاملة ومدققة لغويًا
         const quizData = [
             {
-                id: 'sec1',
-                title: 'الرئيسية (معاني الحروف)',
+                id: 'meanings',
+                title: 'معاني الحروف',
                 questions: [
                     {
-                        q: 'الحرف (ليت) يفيد التمني.',
+                        q: 'في جملة (إنّ العلمَ نورٌ)، تفيد (إنّ):',
+                        type: 'mcq',
+                        options: ['التوكيد', 'التمني', 'الترجي'],
+                        correct: 'التوكيد',
+                        hint: 'تذكر أن هذا الحرف يؤكد المعنى ويزيل أي شك لدى السامع.',
+                        exp: 'الحرفان (إنّ) و(أنّ) يفيدان التوكيد.'
+                    },
+                    {
+                        q: 'كأنّ الجنديَ أسدٌ في شجاعته. الحرف (كأنّ) يفيد:',
+                        type: 'mcq',
+                        options: ['الاستدراك', 'التوكيد', 'التشبيه'],
+                        correct: 'التشبيه',
+                        hint: 'تأمل الجملة، تجد أنها تربط بين شيئين في صفة مشتركة.',
+                        exp: '(كأنّ) حرف ناسخ يفيد التشبيه.'
+                    },
+                    {
+                        q: 'الجو باردٌ لكنّ السماءَ صافيةٌ. الحرف (لكنّ) يفيد:',
+                        type: 'mcq',
+                        options: ['الترجي', 'الاستدراك', 'التمني'],
+                        correct: 'الاستدراك',
+                        hint: 'يستخدم هذا الحرف لمنع السامع من فهم خاطئ قد يتولد من الكلام السابق.',
+                        exp: '(لكنّ) حرف استدراك، يُستخدم لرفع التوهم الناشئ عن الكلام السابق.'
+                    },
+                    {
+                        q: 'الحرف الذي نستخدمه لطلب أمر مستحيل أو يصعب حدوثه:',
+                        type: 'mcq',
+                        options: ['لعلّ', 'ليت', 'إنّ'],
+                        correct: 'ليت',
+                        hint: 'يسمى هذا المعنى (التمني).',
+                        exp: '(ليت) حرف ناسخ يفيد التمني، وهو طلب المحال أو ما فيه مشقة.'
+                    },
+                    {
+                        q: 'تفيد (لعلّ) الترجي، وهو توقع أمر محبوب وممكن الحدوث.',
                         type: 'tf',
                         options: ['صواب', 'خطأ'],
                         correct: 'صواب',
-                        hint: 'تذكر أن هذا الحرف يُستخدم لطلب الأشياء التي يصعب أو يستحيل حدوثها.',
-                        exp: '(ليت) حرف يفيد التمني، وهو طلب الأمر المحبوب الذي لا يُرجى حدوثه.'
+                        hint: 'قارن بين هذا الحرف وبين الحرف (ليت).',
+                        exp: '(لعلّ) تفيد الترجي بالفعل، على عكس (ليت) التي تفيد التمني.'
                     },
                     {
-                        q: 'الحرف الذي يفيد الاستدراك لمنع الفهم الخاطئ:',
-                        type: 'mcq',
-                        options: ['لكنّ', 'لعلّ', 'أنّ'],
-                        correct: 'لكنّ',
-                        hint: 'يُستخدم هذا الحرف في وسط الكلام لرفع توهم تولد من الكلام السابق.',
-                        exp: '(لكنّ) حرف استدراك، يُنصب المبتدأ ويُرفع الخبر.'
-                    },
-                    {
-                        q: 'تفيد (لعلّ) التوكيد.',
+                        q: 'تفيد (أنّ) التشبيه في الجملة الاسمية.',
                         type: 'tf',
                         options: ['صواب', 'خطأ'],
                         correct: 'خطأ',
-                        hint: 'حروف التوكيد تبدأ بحرف الهمزة دائمًا.',
-                        exp: '(لعلّ) تفيد الترجي أو التوقع، بينما (إنّ) و (أنّ) هما اللذان يفيدان التوكيد.'
+                        hint: 'حروف التوكيد تبدأ بالهمزة دائمًا.',
+                        exp: '(أنّ) تفيد التوكيد، أما الحرف الذي يفيد التشبيه فهو (كأنّ).'
                     }
                 ]
             },
             {
-                id: 'sec2',
-                title: 'عملها وإعرابها',
+                id: 'action',
+                title: 'عمل الحروف',
                 questions: [
                     {
-                        q: 'في جملة (إنّ العلمَ نورٌ) إعراب كلمة (العلمَ):',
+                        q: 'تدخل (إنّ وأخواتها) على الجملة:',
                         type: 'mcq',
-                        options: ['اسم إنّ منصوب', 'خبر إنّ مرفوع', 'مبتدأ مرفوع'],
-                        correct: 'اسم إنّ منصوب',
-                        hint: 'تذكر تأثير (إنّ) على المبتدأ عند دخولها على الجملة الاسمية.',
-                        exp: '(إنّ) تنصب المبتدأ ويُسمى اسمها، وترفع الخبر ويُسمى خبرها. لذا (العلمَ) اسم إنّ منصوب.'
+                        options: ['الاسمية', 'الفعلية', 'شبه الجملة'],
+                        correct: 'الاسمية',
+                        hint: 'تذكر نوع الجملة التي تتكون من مبتدأ وخبر.',
+                        exp: 'تدخل هذه الحروف على الجملة الاسمية (المبتدأ والخبر) فقط.'
                     },
                     {
-                        q: 'ليت العاملينَ مخلصون. علامة نصب اسم ليت:',
+                        q: 'عند دخول (إنّ) أو إحدى أخواتها على الجملة الاسمية، فإنها:',
                         type: 'mcq',
-                        options: ['الياء', 'الفتحة', 'الكسرة'],
+                        options: ['تنصب المبتدأ وترفع الخبر', 'ترفع المبتدأ وتنصب الخبر', 'تنصب المبتدأ والخبر معًا'],
+                        correct: 'تنصب المبتدأ وترفع الخبر',
+                        hint: 'تذكر القاعدة الأساسية لعمل هذه الحروف لتغيير التشكيل.',
+                        exp: 'تقوم هذه الحروف بنسخ حكم الجملة، فتنصب المبتدأ وترفع الخبر.'
+                    },
+                    {
+                        q: 'بعد دخول الحرف الناسخ، يسمى المبتدأ:',
+                        type: 'mcq',
+                        options: ['اسم الحرف الناسخ', 'فاعلاً', 'مبتدأً ثانيًا'],
+                        correct: 'اسم الحرف الناسخ',
+                        hint: 'يتغير اسم المبتدأ ليُنسب إلى الحرف الذي دخل عليه.',
+                        exp: 'ينصب الحرف الناسخ المبتدأ، ويسمى (اسمها).'
+                    },
+                    {
+                        q: 'بعد دخول الحرف الناسخ، يسمى الخبر:',
+                        type: 'mcq',
+                        options: ['خبر الحرف الناسخ', 'نعتًا مرفوعًا', 'مضافًا إليه'],
+                        correct: 'خبر الحرف الناسخ',
+                        hint: 'يبقى مرفوعًا ولكن تتغير نسبته في الإعراب.',
+                        exp: 'يرفع الحرف الناسخ الخبر، ويسمى (خبرها).'
+                    },
+                    {
+                        q: 'إنّ وأخواتها تغير إعراب الجملة الاسمية، ولذلك تسمى حروفًا:',
+                        type: 'mcq',
+                        options: ['ناسخة', 'عاطفة', 'جازمة'],
+                        correct: 'ناسخة',
+                        hint: 'النسخ في اللغة يعني التغيير والإزالة.',
+                        exp: 'تسمى حروفًا ناسخة لأنها تنسخ (تغير) حكم المبتدأ من الرفع إلى النصب.'
+                    }
+                ]
+            },
+            {
+                id: 'noun_states',
+                title: 'إعراب اسم إن',
+                questions: [
+                    {
+                        q: 'إنّ السماءَ صافيةٌ. علامة نصب اسم إنّ:',
+                        type: 'mcq',
+                        options: ['الفتحة', 'الكسرة', 'الألف'],
+                        correct: 'الفتحة',
+                        hint: 'الاسم (السماء) مفرد، تذكر علامة النصب الأصلية للمفرد.',
+                        exp: '(السماءَ) اسم مفرد، لذلك ينصب بالفتحة.'
+                    },
+                    {
+                        q: 'ليت الطالبين ناجحان. علامة نصب اسم ليت:',
+                        type: 'mcq',
+                        options: ['الألف', 'الياء', 'الكسرة'],
                         correct: 'الياء',
-                        hint: 'انظر إلى نوع الكلمة من حيث العدد، فهي جمع مذكر سالم.',
+                        hint: 'الكلمة تدل على اثنين (مثنى).',
+                        exp: '(الطالبين) مثنى، وعلامة نصبه الياء.'
+                    },
+                    {
+                        q: 'لعلّ العاملين مخلصون في عملهم. علامة نصب اسم لعلّ:',
+                        type: 'mcq',
+                        options: ['الياء', 'الواو', 'الفتحة'],
+                        correct: 'الياء',
+                        hint: 'الكلمة جمع مذكر سالم.',
                         exp: '(العاملين) جمع مذكر سالم، وعلامة نصبه الياء.'
                     },
                     {
-                        q: 'كأنّ الفتاتين قمران. علامة رفع خبر كأنّ:',
+                        q: 'إنّ الأمهاتِ رحيماتٌ. علامة نصب اسم إنّ:',
                         type: 'mcq',
-                        options: ['الألف', 'الضمة', 'ثبوت النون'],
-                        correct: 'الألف',
-                        hint: 'الكلمة تدل على اثنتين (مثنى).',
-                        exp: '(قمران) خبر كأنّ مرفوع وعلامة رفعه الألف لأنه مثنى.'
+                        options: ['الفتحة', 'الكسرة', 'السكون'],
+                        correct: 'الكسرة',
+                        hint: 'الكلمة جمع مؤنث سالم، وله علامة نصب فرعية مميزة.',
+                        exp: '(الأمهاتِ) اسم إن منصوب وعلامة نصبه الكسرة نيابة عن الفتحة لأنه جمع مؤنث سالم.'
+                    },
+                    {
+                        q: 'كأنّ ..... أسدٌ. الكلمة المناسبة لملء الفراغ:',
+                        type: 'mcq',
+                        options: ['أبوك', 'أبيك', 'أباك'],
+                        correct: 'أباك',
+                        hint: 'اسم كأنّ يكون منصوبًا، والأسماء الخمسة تنصب بعلامة خاصة.',
+                        exp: '(أباك) اسم كأنّ منصوب وعلامة نصبه الألف لأنه من الأسماء الخمسة.'
+                    },
+                    {
+                        q: 'في جملة (إنك مجتهدٌ)، اسم إنّ هو:',
+                        type: 'mcq',
+                        options: ['كاف الخطاب', 'مجتهد', 'ضمير مستتر'],
+                        correct: 'كاف الخطاب',
+                        hint: 'ابحث عن الضمير المتصل بالحرف الناسخ.',
+                        exp: '(كاف الخطاب) ضمير متصل مبني في محل نصب اسم إنّ.'
+                    },
+                    {
+                        q: 'الضمير المتصل بحرف من أخوات (إنّ) يكون دائمًا في محل رفع اسمها.',
+                        type: 'tf',
+                        options: ['صواب', 'خطأ'],
+                        correct: 'خطأ',
+                        hint: 'تذكر عمل إنّ وأخواتها في المبتدأ (الاسم).',
+                        exp: 'الضمير المتصل يكون دائمًا في محل (نصب) اسم إنّ وليس في محل رفع.'
                     }
                 ]
             },
             {
-                id: 'sec3',
+                id: 'predicate_types',
                 title: 'أنواع الخبر',
                 questions: [
                     {
-                        q: 'لعلّ المطرَ (يهطلُ). نوع الخبر هنا:',
+                        q: 'إنّ الصبرَ (مفتاحٌ) للفرج. نوع الخبر:',
+                        type: 'mcq',
+                        options: ['مفرد', 'شبه جملة', 'جملة اسمية'],
+                        correct: 'مفرد',
+                        hint: 'الخبر كلمة واحدة أتمت المعنى، وليست فعلًا ولا ظرفًا.',
+                        exp: 'الخبر (مفتاحٌ) نوعه مفرد، لأنه ليس جملة ولا شبه جملة.'
+                    },
+                    {
+                        q: 'لعلّ المطرَ (يهطلُ). نوع الخبر:',
                         type: 'mcq',
                         options: ['جملة فعلية', 'مفرد', 'شبه جملة'],
                         correct: 'جملة فعلية',
-                        hint: 'الكلمة بين القوسين تدل على حدث في الزمن المضارع.',
-                        exp: 'الخبر هنا جملة (يهطلُ)، وهي جملة فعلية في محل رفع خبر (لعلّ).'
+                        hint: 'الكلمة بين القوسين تدل على حدث في زمن معين.',
+                        exp: 'الخبر الجملة الفعلية (يهطل) المكونة من الفعل والفاعل المستتر.'
                     },
                     {
-                        q: 'إنّ الطائرَ (فوقَ) الغصنِ. نوع الخبر:',
+                        q: 'إنّ الحديقةَ (أشجارُها مثمرةٌ). نوع الخبر:',
                         type: 'mcq',
-                        options: ['شبه جملة', 'مفرد', 'جملة اسمية'],
-                        correct: 'شبه جملة',
-                        hint: 'الكلمة بين القوسين ظرف مكان.',
-                        exp: 'الخبر هنا (فوق) وهو ظرف مكان، لذلك نوع الخبر شبه جملة.'
-                    },
-                    {
-                        q: 'علمتُ أنّ الحديقةَ (أشجارها مثمرةٌ). نوع الخبر:',
-                        type: 'mcq',
-                        options: ['جملة اسمية', 'مفرد', 'شبه جملة'],
+                        options: ['مفرد', 'جملة فعلية', 'جملة اسمية'],
                         correct: 'جملة اسمية',
-                        hint: 'الخبر يتكون من مبتدأ ثانٍ وخبره، وبينهما ضمير (رابط).',
-                        exp: 'الخبر هو الجملة (أشجارها مثمرةٌ) المكونة من مبتدأ وخبر، وهي جملة اسمية في محل رفع خبر (أنّ).'
+                        hint: 'الخبر يبدأ باسم + هاء، فكّر!',
+                        exp: 'الخبر الجملة الاسمية (أشجارُها مثمرةٌ) المكونة من مبتدأ وخبر.'
+                    },
+                    {
+                        q: 'إنّ العلمَ (قبلَ) المال. نوع الخبر:',
+                        type: 'mcq',
+                        options: ['شبه جملة (ظرف)', 'مفرد', 'جملة فعلية'],
+                        correct: 'شبه جملة (ظرف)',
+                        hint: 'الكلمة بين القوسين تدل على زمان أو مكان.',
+                        exp: 'الخبر هنا شبه جملة لأنه يبدأ بظرف (قبلَ).'
+                    },
+                    {
+                        q: 'إنّ النظافةَ (من الإيمان). نوع الخبر:',
+                        type: 'mcq',
+                        options: ['مفرد', 'شبه جملة (جار ومجرور)', 'جملة اسمية'],
+                        correct: 'شبه جملة (جار ومجرور)',
+                        hint: 'انظر إلى الكلمة الأولى بين القوسين.',
+                        exp: 'الخبر شبه جملة لأنه مكون من حرف جر (من) واسم مجرور (الإيمان).'
+                    },
+                    {
+                        q: 'خبر ليت في جملة (ليت الشبابَ يعودُ يومًا) هو كلمة (يومًا).',
+                        type: 'tf',
+                        options: ['صواب', 'خطأ'],
+                        correct: 'خطأ',
+                        hint: 'ابحث عن الكلمة التي أتمت المعنى الأساسي للجملة بعد اسم ليت.',
+                        exp: 'الخبر هو الجملة الفعلية (يعودُ)، أما كلمة (يومًا) فهي ظرف زمان مفعول فيه.'
+                    },
+                    {
+                        q: 'لعلّ (في السفرِ) الخيرَ. نوع الخبر:',
+                        type: 'mcq',
+                        options: ['مفرد', 'شبه جملة (جار ومجرور)', 'جملة فعلية'],
+                        correct: 'شبه جملة (جار ومجرور)',
+                        hint: 'الخبر هنا تقدم على الاسم، وبدأ بحرف جر.',
+                        exp: 'الخبر شبه جملة لأنه مكون من الجار والمجرور (في السفرِ).'
+                    },
+                    {
+                        q: 'إنّ محمدًا (لَناجحٌ). نوع الخبر:',
+                        type: 'mcq',
+                        options: ['مفرد', 'شبه جملة', 'جملة فعلية'],
+                        correct: 'مفرد',
+                        hint: 'اللام مفتوحة (للتوكيد) وليست حرف جر؛ فهي لا تؤثر على الإعراب.',
+                        exp: 'الخبر هو (ناجحٌ) وهو مفرد. واللام المتصلة به هي لام التوكيد ولا تجعله شبه جملة.'
                     }
                 ]
             }
         ];
 
-        // حالة التطبيق لتتبع الدرجات والأسئلة المجابة
         let appState = {};
 
         function initAppState() {
@@ -216,7 +364,6 @@
             });
         }
 
-        // بناء واجهة المستخدم
         function renderApp() {
             const tabsList = document.getElementById('tabs-list');
             const mainContent = document.getElementById('main-content');
@@ -227,66 +374,62 @@
             quizData.forEach((sec, index) => {
                 const isFirst = index === 0;
 
-                // إنشاء التبويبات
+                // التبويبات
                 const li = document.createElement('li');
                 li.className = 'whitespace-nowrap';
                 li.innerHTML = `
-                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-4 py-3 text-lg font-medium border-b-4 transition-all duration-200 ${isFirst ? 'border-brand-600 text-brand-700' : 'border-transparent text-slate-500 hover:text-brand-600 hover:border-brand-200'}">
-                        ${sec.title.replace('الرئيسية (', '').replace(')', '')}
+                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-4 py-3 text-lg font-bold border-b-4 transition-all duration-200 ${isFirst ? 'border-brand-600 text-brand-700' : 'border-transparent text-slate-500 hover:text-brand-600 hover:border-brand-200'}">
+                        ${sec.title}
                     </button>
                 `;
                 tabsList.appendChild(li);
 
-                // إنشاء محتوى القسم
+                // محتوى القسم
                 const sectionDiv = document.createElement('div');
                 sectionDiv.id = `panel-${sec.id}`;
                 sectionDiv.className = `tab-content ${isFirst ? 'active' : ''}`;
 
-                // إضافة عنوان التطبيق والمقدمة في الصفحة الأولى فقط
                 if (isFirst) {
                     sectionDiv.innerHTML += `
                         <div class="text-center mb-10">
-                            <h2 class="text-3xl sm:text-4xl font-bold text-brand-900 mb-4">درس إنّ وأخواتها</h2>
-                            <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-brand-900 mb-4">إنّ وأخواتها</h2>
+                            <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto font-medium">
                                 مرحبًا بك في هذا التطبيق التفاعلي. اقرأ الأسئلة بعناية، واختر الإجابة الصحيحة. 
-                                يمكنك الاستعانة بـ (التلميح) إذا واجهت صعوبة في الحل.
+                                يمكنك الاستعانة بـ (التلميح) إذا واجهت صعوبة.
                             </p>
                         </div>
                     `;
                 }
 
-                // إضافة الأسئلة
+                // الأسئلة
                 const questionsHTML = sec.questions.map((q, qIndex) => `
                     <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 mb-6" id="card-${sec.id}-${qIndex}">
                         <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-5">
-                            <h3 class="text-xl font-semibold text-slate-800 leading-relaxed">
+                            <h3 class="question-text font-bold text-slate-800">
                                 <span class="text-brand-600 me-1">السؤال ${toEasternNum(qIndex + 1)}:</span>
                                 ${q.q}
                             </h3>
-                            <button onclick="toggleHint('${sec.id}', ${qIndex})" class="flex items-center gap-1.5 text-amber-600 bg-amber-50 px-4 py-2 rounded-xl hover:bg-amber-100 transition-colors shrink-0 font-medium">
-                                <span>💡</span> تلميح
+                            <button onclick="toggleHint('${sec.id}', ${qIndex})" class="flex items-center gap-1.5 text-amber-600 bg-amber-50 px-4 py-2 rounded-xl hover:bg-amber-100 transition-colors shrink-0 font-bold">
+                                💡 تلميح
                             </button>
                         </div>
                         
-                        <!-- التلميح (مخفي افتراضياً) -->
-                        <div id="hint-${sec.id}-${qIndex}" class="hidden mb-6 p-4 bg-amber-50/50 border border-amber-100 text-amber-800 rounded-xl text-md leading-relaxed">
+                        <div id="hint-${sec.id}-${qIndex}" class="hidden mb-6 p-4 bg-amber-50 border border-amber-100 text-amber-800 rounded-xl text-lg font-medium leading-relaxed">
                             ${q.hint}
                         </div>
 
-                        <!-- الخيارات -->
                         <div class="flex flex-wrap gap-3 mb-2" id="opts-${sec.id}-${qIndex}">
                             ${q.options.map(opt => `
-                                <button onclick="selectAnswer('${sec.id}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[140px] text-lg bg-slate-50 border-2 border-slate-100 text-slate-700 py-3 px-5 rounded-xl hover:bg-slate-100 hover:border-slate-300 transition-all font-medium text-center">
+                                <button onclick="selectAnswer('${sec.id}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[140px] text-xl font-bold bg-slate-50 border-2 border-slate-100 text-slate-700 py-3 px-5 rounded-xl hover:bg-slate-100 hover:border-slate-300 transition-all text-center">
                                     ${opt}
                                 </button>
                             `).join('')}
                         </div>
 
-                        <!-- التغذية الراجعة والشرح -->
-                        <div id="feedback-${sec.id}-${qIndex}" class="hidden mt-6 pt-5 border-t border-slate-100 animation-fadeIn">
+                        <div id="feedback-${sec.id}-${qIndex}" class="hidden mt-6 pt-5 border-t border-slate-100">
                             <div id="res-msg-${sec.id}-${qIndex}" class="font-bold text-xl mb-3 flex items-center gap-2"></div>
-                            <div class="text-slate-700 leading-relaxed text-lg bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                <span class="font-semibold text-brand-700">التوضيح:</span> ${q.exp}
+                            <div class="text-slate-700 font-medium leading-relaxed text-lg bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                <span class="font-bold text-brand-700">التوضيح:</span> ${q.exp}
                             </div>
                         </div>
                     </div>
@@ -294,13 +437,13 @@
 
                 sectionDiv.innerHTML += questionsHTML;
 
-                // إضافة شريط النتيجة وزر إعادة المحاولة
+                // التذييل وإعادة المحاولة
                 sectionDiv.innerHTML += `
                     <div class="flex flex-col sm:flex-row items-center justify-between mt-10 p-6 sm:p-8 bg-white rounded-2xl shadow-sm border border-slate-200">
                         <div class="text-2xl font-bold text-slate-800 mb-4 sm:mb-0">
                             نتيجة القسم: <span id="score-${sec.id}" class="text-brand-600">٠</span> / ${toEasternNum(sec.questions.length)}
                         </div>
-                        <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-6 py-3 rounded-xl hover:bg-slate-700 transition-colors font-medium flex items-center gap-2">
+                        <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-6 py-3 rounded-xl hover:bg-slate-700 transition-colors font-bold flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                             إعادة المحاولة
                         </button>
@@ -311,7 +454,6 @@
             });
         }
 
-        // التبديل بين التبويبات
         function switchTab(targetId) {
             document.querySelectorAll('.tab-content').forEach(panel => {
                 panel.classList.remove('active');
@@ -328,7 +470,6 @@
             activeBtn.classList.add('border-brand-600', 'text-brand-700');
         }
 
-        // إظهار/إخفاء التلميح
         function toggleHint(secId, qIndex) {
             const hintDiv = document.getElementById(`hint-${secId}-${qIndex}`);
             if (hintDiv.classList.contains('hidden')) {
@@ -340,9 +481,7 @@
             }
         }
 
-        // التحقق من الإجابة
         function selectAnswer(secId, qIndex, selectedOpt) {
-            // منع الإجابة مرة أخرى لنفس السؤال
             if (appState[secId].answeredQuestions.has(qIndex)) return;
             
             appState[secId].answeredQuestions.add(qIndex);
@@ -355,32 +494,27 @@
                 appState[secId].score += 1;
             }
 
-            // تحديث واجهة الخيارات
             const optsContainer = document.getElementById(`opts-${secId}-${qIndex}`);
             const buttons = optsContainer.querySelectorAll('button');
             
             buttons.forEach(btn => {
-                btn.disabled = true;
+                btn.classList.add('disabled-btn');
                 btn.classList.remove('hover:bg-slate-100', 'hover:border-slate-300', 'bg-slate-50', 'text-slate-700');
                 
                 if (btn.innerText.trim() === question.correct) {
-                    // الخيار الصحيح (أخضر)
                     btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-700', 'font-bold');
                 } else if (btn.innerText.trim() === selectedOpt && !isCorrect) {
-                    // الخيار الخاطئ الذي تم تحديده (أحمر)
                     btn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-700');
                 } else {
-                    // باقي الخيارات
                     btn.classList.add('opacity-50', 'bg-slate-50', 'border-slate-200');
                 }
             });
 
-            // إظهار التغذية الراجعة
             const feedbackDiv = document.getElementById(`feedback-${secId}-${qIndex}`);
             const resMsg = document.getElementById(`res-msg-${secId}-${qIndex}`);
             
             feedbackDiv.classList.remove('hidden');
-            feedbackDiv.classList.add('block');
+            feedbackDiv.classList.add('block', 'animate-[fadeIn_0.5s_ease-in-out]');
 
             if (isCorrect) {
                 resMsg.innerHTML = `
@@ -394,44 +528,37 @@
                 `;
             }
 
-            // تحديث النتيجة
             document.getElementById(`score-${secId}`).innerText = toEasternNum(appState[secId].score);
         }
 
-        // إعادة محاولة القسم
         function retrySection(secId) {
-            // تصفير البيانات
             appState[secId].score = 0;
             appState[secId].answeredQuestions.clear();
 
-            // تحديث واجهة النتيجة
             document.getElementById(`score-${secId}`).innerText = toEasternNum(0);
 
             const section = quizData.find(s => s.id === secId);
             
             section.questions.forEach((q, qIndex) => {
-                // إخفاء التغذية الراجعة
-                document.getElementById(`feedback-${secId}-${qIndex}`).classList.add('hidden');
-                document.getElementById(`feedback-${secId}-${qIndex}`).classList.remove('block');
+                const feedbackDiv = document.getElementById(`feedback-${secId}-${qIndex}`);
+                feedbackDiv.classList.add('hidden');
+                feedbackDiv.classList.remove('block', 'animate-[fadeIn_0.5s_ease-in-out]');
                 
-                // إخفاء التلميح
-                document.getElementById(`hint-${secId}-${qIndex}`).classList.add('hidden');
-                document.getElementById(`hint-${secId}-${qIndex}`).classList.remove('block');
+                const hintDiv = document.getElementById(`hint-${secId}-${qIndex}`);
+                hintDiv.classList.add('hidden');
+                hintDiv.classList.remove('block');
 
-                // إعادة تعيين الأزرار
                 const optsContainer = document.getElementById(`opts-${secId}-${qIndex}`);
                 optsContainer.innerHTML = q.options.map(opt => `
-                    <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[140px] text-lg bg-slate-50 border-2 border-slate-100 text-slate-700 py-3 px-5 rounded-xl hover:bg-slate-100 hover:border-slate-300 transition-all font-medium text-center">
+                    <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[140px] text-xl font-bold bg-slate-50 border-2 border-slate-100 text-slate-700 py-3 px-5 rounded-xl hover:bg-slate-100 hover:border-slate-300 transition-all text-center">
                         ${opt}
                     </button>
                 `).join('');
             });
             
-            // التمرير السلس لأعلى القسم
             document.getElementById(`panel-${secId}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // تهيئة التطبيق عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', () => {
             initAppState();
             renderApp();
@@ -440,3 +567,5 @@
     </script>
 </body>
 </html>
+
+
