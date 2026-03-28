@@ -85,15 +85,15 @@
     <!-- ========================================== -->
     <!-- 4. الترويسة (Header) تختفي مع التمرير      -->
     <!-- ========================================== -->
-    <header class="w-full py-8 flex flex-col items-center justify-center bg-transparent border-b border-slate-100">
+    <header class="w-full py-6 flex flex-col items-center justify-center bg-transparent border-b border-slate-100">
         <a href="https://www.youtube.com/egysalah" target="_blank" class="flex flex-row items-center gap-2 no-underline outline-none">
             <!-- النص ثم الشعار -->
-            <span class="text-2xl font-bold text-slate-900">العربية السهلة</span>
+            <span class="text-2xl font-bold text-slate-800">العربية السهلة</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" class="w-7 h-7">
                 <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
             </svg>
         </a>
-        <p class="text-slate-500 mt-1 text-lg font-bold">محمود صلاح</p>
+        <p class="text-slate-500 mt-1 text-lg font-medium">محمود صلاح</p>
     </header>
 
     <!-- ========================================== -->
@@ -125,25 +125,25 @@
     <div id="final-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 modal-overlay opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 transform scale-95 transition-transform duration-300" id="modal-content">
             <div class="text-center mb-6">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-brand-100 text-brand-600 rounded-full mb-4 shadow-sm">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-brand-50 text-brand-600 rounded-full mb-4 shadow-sm border border-brand-100">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <h2 class="text-3xl font-bold text-slate-800 mb-2">التقييم الشامل</h2>
                 <p class="text-slate-600 text-lg font-medium">لقد أتممت جميع التدريبات، إليك نتيجتك النهائية:</p>
             </div>
             
-            <div class="bg-slate-50 rounded-2xl p-6 mb-6 border border-slate-100 shadow-inner">
+            <div class="bg-slate-50 rounded-2xl p-6 mb-6 border border-slate-200">
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-xl font-bold text-slate-700">الدرجة الإجمالية:</span>
+                    <span class="text-xl font-semibold text-slate-700">الدرجة الإجمالية:</span>
                     <span id="final-score-display" class="text-2xl font-bold text-brand-600">٠ / ٠</span>
                 </div>
                 <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                     <div id="final-progress-bar" class="bg-brand-500 h-full rounded-full w-0 transition-all duration-1000"></div>
                 </div>
-                <p id="final-message" class="mt-6 text-center text-xl font-bold text-slate-800 leading-relaxed"></p>
+                <p id="final-message" class="mt-6 text-center text-xl font-semibold text-slate-700 leading-relaxed"></p>
             </div>
             
-            <button onclick="closeFinalModal()" class="w-full bg-slate-800 text-white text-xl font-bold py-4 rounded-xl hover:bg-slate-700 transition-colors duration-300 shadow-md btn-interact">
+            <button onclick="closeFinalModal()" class="w-full bg-slate-800 text-white text-xl font-semibold py-4 rounded-xl hover:bg-slate-700 transition-colors duration-300 shadow-md btn-interact">
                 إغلاق والعودة للتدريبات
             </button>
         </div>
@@ -154,7 +154,7 @@
     <!-- ========================================== -->
     <footer class="w-full py-8 mt-auto border-t border-slate-200">
         <div class="text-center px-4">
-            <a href="https://www.youtube.com/egysalah" target="_blank" class="text-slate-400 hover:text-brand-600 font-medium text-sm transition-colors outline-none block">
+            <a href="https://www.youtube.com/egysalah" target="_blank" class="text-slate-500 hover:text-brand-600 font-medium text-sm transition-colors outline-none block">
                 جميع الحقوق محفوظة لقناة العربية السهلة
             </a>
         </div>
@@ -282,8 +282,7 @@
             if (activeBtn) {
                 activeBtn.classList.remove('border-transparent', 'text-slate-600');
                 activeBtn.classList.add('border-brand-700', 'text-brand-800', 'bg-brand-50');
-                
-                // تمرير التبويبات أفقيًا بسلاسة لضمان ظهور التبويب النشط دائمًا على الشاشات الصغيرة
+                // تمرير زر التبويب ليكون مرئياً في الجوال بشكل أفقي وسلس
                 activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
 
@@ -291,18 +290,17 @@
             updateProgressBar(targetId);
 
             // =====================================
-        // سلوك التمرير (Scrolling Behavior)
-        // =====================================
-        // استخدام setTimeout لضمان تطبيق العرض وإمكانية حساب الأبعاد بشكل صحيح
-        // التمرير يتم بالاعتماد على scroll-margin-top المحددة في CSS
-        setTimeout(() => {
-            if (panel) {
-                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }, 50);
-    }
+            // سلوك التمرير (Scrolling Behavior)
+            // =====================================
+            // الانتقال بسلاسة إلى أعلى محتوى القسم
+            setTimeout(() => {
+                if (panel) {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 50);
+        }
 
-    function updateProgressBar(secId) {
+        function updateProgressBar(secId) {
             const state = appState.sections[secId];
             if (!state || state.totalQuestions === 0) {
                 document.getElementById('section-progress-bar').style.width = '0%';
@@ -322,11 +320,11 @@
                 const isFirst = index === 0;
                 const isLast = index === quizData.length - 1;
 
-                // إنشاء أزرار التبويبات (نحيفة جداً py-1 بحجم خط مناسب text-lg)
+                // إنشاء أزرار التبويبات
                 const li = document.createElement('li');
                 li.className = 'whitespace-nowrap shrink-0';
                 li.innerHTML = `
-                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-5 sm:px-6 py-1 text-lg font-bold border-b-[3px] outline-none btn-interact ${isFirst ? 'border-brand-700 text-brand-800 bg-brand-50' : 'border-transparent text-slate-600'}">
+                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-5 sm:px-6 py-1 text-lg font-semibold border-b-[3px] outline-none btn-interact ${isFirst ? 'border-brand-700 text-brand-800 bg-brand-50' : 'border-transparent text-slate-600'}">
                         ${sec.title}
                     </button>
                 `;
@@ -337,17 +335,17 @@
                 sectionDiv.id = `panel-${sec.id}`;
                 sectionDiv.className = `tab-content pt-8 ${isFirst ? 'active' : ''}`;
 
-                // إضافة عنوان الدرس ليكون متوسطاً في جميع الأقسام
+                // إضافة عنوان الدرس ليكون متوسطاً في جميع الأقسام (بحجم متناسق وألوان مريحة)
                 let subtitleHtml = '';
                 if (sec.type === 'summary') {
-                    subtitleHtml = '<p class="text-slate-600 text-2xl leading-relaxed max-w-3xl mx-auto font-medium">مراجعة سريعة لأهم قواعد الدرس قبل البدء في التدريبات.</p>';
+                    subtitleHtml = '<p class="text-slate-600 text-xl sm:text-2xl leading-relaxed max-w-3xl mx-auto font-medium">مراجعة سريعة لأهم قواعد الدرس قبل البدء في التدريبات.</p>';
                 } else if (sec.id === 'meanings') {
-                    subtitleHtml = '<p class="text-slate-600 text-2xl leading-relaxed max-w-3xl mx-auto font-medium">اقرأ الأسئلة بعناية، واختر الإجابة الصحيحة. يمكنك الاستعانة بـ (التلميح 💡) إذا واجهت صعوبة.</p>';
+                    subtitleHtml = '<p class="text-slate-600 text-xl sm:text-2xl leading-relaxed max-w-3xl mx-auto font-medium">اقرأ الأسئلة بعناية، واختر الإجابة الصحيحة. يمكنك الاستعانة بـ (التلميح 💡) إذا واجهت صعوبة.</p>';
                 }
 
                 sectionDiv.innerHTML += `
-                    <div class="text-center mb-12">
-                        <h2 class="text-5xl font-bold text-slate-900 ${subtitleHtml ? 'mb-6' : ''}">إنّ وأخواتها</h2>
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-slate-800 ${subtitleHtml ? 'mb-4' : ''}">إنّ وأخواتها</h2>
                         ${subtitleHtml}
                     </div>
                 `;
@@ -357,54 +355,54 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <!-- البطاقة الأولى: العمل والتأثير -->
                             <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200">
-                                <div class="flex items-center gap-4 mb-6">
-                                    <div class="bg-blue-100 p-4 rounded-full text-blue-600">
-                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div class="flex items-center gap-4 mb-5">
+                                    <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-slate-800">العمل والتأثير</h3>
+                                    <h3 class="text-xl sm:text-2xl font-semibold text-slate-700">العمل والتأثير</h3>
                                 </div>
-                                <p class="text-slate-700 text-xl leading-relaxed">
-                                    حروف ناسخة تدخل على <strong>الجملة الاسمية</strong>، فتنصب المبتدأ ويُسمى (اسمها)، وترفع الخبر ويُسمى (خبرها).
+                                <p class="text-slate-600 text-lg sm:text-xl leading-relaxed font-medium">
+                                    حروف ناسخة تدخل على <strong class="text-slate-800 font-semibold">الجملة الاسمية</strong>، فتنصب المبتدأ ويُسمى (اسمها)، وترفع الخبر ويُسمى (خبرها).
                                 </p>
                             </div>
 
                             <!-- البطاقة الثانية: معاني الحروف -->
                             <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200 md:row-span-2">
-                                <div class="flex items-center gap-4 mb-6">
-                                    <div class="bg-amber-100 p-4 rounded-full text-amber-600">
-                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                                <div class="flex items-center gap-4 mb-5">
+                                    <div class="bg-amber-100 p-3 rounded-full text-amber-600">
+                                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-slate-800">معاني الحروف</h3>
+                                    <h3 class="text-xl sm:text-2xl font-semibold text-slate-700">معاني الحروف</h3>
                                 </div>
-                                <ul class="text-slate-700 text-xl leading-relaxed space-y-4">
-                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-bold">إنّ، أنّ:</span> تفيدان التوكيد.</li>
-                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-bold">كأنّ:</span> تفيد التشبيه.</li>
-                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-bold">لكنّ:</span> تفيد الاستدراك.</li>
-                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-bold">ليت:</span> تفيد التمني (طلب المحال).</li>
-                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-bold">لعلّ:</span> تفيد الترجي (توقع الممكن).</li>
+                                <ul class="text-slate-600 text-lg sm:text-xl leading-relaxed space-y-4 font-medium">
+                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-semibold">إنّ، أنّ:</span> تفيدان التوكيد.</li>
+                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-semibold">كأنّ:</span> تفيد التشبيه.</li>
+                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-semibold">لكنّ:</span> تفيد الاستدراك.</li>
+                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-semibold">ليت:</span> تفيد التمني (طلب المحال).</li>
+                                    <li class="flex items-start gap-2"><span class="text-brand-700 font-semibold">لعلّ:</span> تفيد الترجي (توقع الممكن).</li>
                                 </ul>
                             </div>
 
                             <!-- البطاقة الثالثة: أنواع الخبر -->
                             <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200">
-                                <div class="flex items-center gap-4 mb-6">
-                                    <div class="bg-emerald-100 p-4 rounded-full text-emerald-600">
-                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                                <div class="flex items-center gap-4 mb-5">
+                                    <div class="bg-emerald-100 p-3 rounded-full text-emerald-600">
+                                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                                     </div>
-                                    <h3 class="text-2xl font-bold text-slate-800">أنواع الخبر</h3>
+                                    <h3 class="text-xl sm:text-2xl font-semibold text-slate-700">أنواع الخبر</h3>
                                 </div>
-                                <ul class="text-slate-700 text-xl leading-relaxed space-y-3">
-                                    <li><span class="font-bold">مفرد:</span> ليس جملة ولا شبه جملة.</li>
-                                    <li><span class="font-bold">جملة:</span> اسمية أو فعلية.</li>
-                                    <li><span class="font-bold">شبه جملة:</span> ظرف أو جار ومجرور.</li>
+                                <ul class="text-slate-600 text-lg sm:text-xl leading-relaxed space-y-3 font-medium">
+                                    <li><span class="font-semibold text-slate-700">مفرد:</span> ليس جملة ولا شبه جملة.</li>
+                                    <li><span class="font-semibold text-slate-700">جملة:</span> اسمية أو فعلية.</li>
+                                    <li><span class="font-semibold text-slate-700">شبه جملة:</span> ظرف أو جار ومجرور.</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="flex justify-center mt-12 mb-8">
-                            <button onclick="switchTab('${quizData[index + 1].id}')" class="bg-brand-600 text-white px-10 py-5 rounded-2xl font-bold flex items-center gap-3 text-2xl outline-none shadow-md btn-interact">
+                            <button onclick="switchTab('${quizData[index + 1].id}')" class="bg-brand-600 text-white px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 text-xl sm:text-2xl outline-none shadow-sm btn-interact">
                                 ابدأ التدريبات
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             </button>
                         </div>
                     `;
@@ -419,7 +417,7 @@
 
                 // أزرار نهاية القسم
                 let footerBtns = `
-                    <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 text-xl outline-none btn-interact shadow-sm">
+                    <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-6 py-4 rounded-2xl font-semibold flex items-center gap-3 text-lg sm:text-xl outline-none btn-interact shadow-sm">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                         إعادة المحاولة
                     </button>
@@ -427,14 +425,14 @@
                 
                 if (!isLast) {
                     footerBtns += `
-                        <button onclick="switchTab('${quizData[index + 1].id}')" class="bg-brand-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 text-xl outline-none btn-interact shadow-sm">
+                        <button onclick="switchTab('${quizData[index + 1].id}')" class="bg-brand-600 text-white px-6 py-4 rounded-2xl font-semibold flex items-center gap-3 text-lg sm:text-xl outline-none btn-interact shadow-sm">
                             القسم التالي
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                         </button>
                     `;
                 } else {
                     footerBtns += `
-                        <button onclick="showFinalEvaluation()" id="btn-final-eval" class="hidden bg-emerald-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 text-xl outline-none btn-interact shadow-sm">
+                        <button onclick="showFinalEvaluation()" id="btn-final-eval" class="hidden bg-emerald-600 text-white px-6 py-4 rounded-2xl font-semibold flex items-center gap-3 text-lg sm:text-xl outline-none btn-interact shadow-sm">
                             عرض النتيجة النهائية
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </button>
@@ -442,9 +440,9 @@
                 }
 
                 sectionDiv.innerHTML += `
-                    <div class="flex flex-col sm:flex-row items-center justify-between mt-12 p-8 bg-white rounded-[2rem] shadow-sm border border-slate-200">
-                        <div class="text-3xl font-bold text-slate-800 mb-6 sm:mb-0">
-                            درجة القسم: <span id="score-${sec.id}" class="text-brand-700">٠</span> / ${toEasternNum(sec.questions.length)}
+                    <div class="flex flex-col sm:flex-row items-center justify-between mt-10 p-6 sm:p-8 bg-white rounded-[2rem] shadow-sm border border-slate-200">
+                        <div class="text-2xl sm:text-3xl font-semibold text-slate-700 mb-6 sm:mb-0">
+                            درجة القسم: <span id="score-${sec.id}" class="text-brand-600">٠</span> / ${toEasternNum(sec.questions.length)}
                         </div>
                         <div class="flex flex-wrap items-center justify-center gap-4 w-full sm:w-auto">
                             ${footerBtns}
@@ -478,34 +476,34 @@
                 }
 
                 return `
-                    <div class="bg-white p-8 sm:p-10 rounded-[2rem] shadow-sm border border-slate-200 mb-10" id="card-${secId}-${qIndex}">
-                        <div class="flex flex-col sm:flex-row justify-between items-start gap-6 mb-8">
-                            <h3 class="text-2xl font-bold text-slate-900 leading-relaxed flex-1">
-                                <span class="text-brand-700 ml-2">السؤال ${toEasternNum(qIndex + 1)}:</span>
+                    <div class="bg-white p-6 sm:p-10 rounded-[2rem] shadow-sm border border-slate-200 mb-8" id="card-${secId}-${qIndex}">
+                        <div class="flex flex-col sm:flex-row justify-between items-start gap-5 mb-8">
+                            <h3 class="text-xl sm:text-2xl font-semibold text-slate-800 leading-relaxed flex-1">
+                                <span class="text-brand-600 ml-1 font-semibold">السؤال ${toEasternNum(qIndex + 1)}:</span>
                                 ${q.q}
                             </h3>
-                            <button onclick="toggleHint('${secId}', ${qIndex})" class="flex items-center gap-2 text-amber-500 bg-amber-50 px-6 py-3 rounded-xl font-bold border border-amber-200 text-xl outline-none shrink-0 btn-interact">
+                            <button onclick="toggleHint('${secId}', ${qIndex})" class="flex items-center gap-2 text-amber-600 bg-amber-50/80 px-5 py-2.5 rounded-xl font-medium border border-amber-200 text-lg sm:text-xl outline-none shrink-0 btn-interact">
                                 💡 تلميح
                             </button>
                         </div>
                         
-                        <div id="hint-${secId}-${qIndex}" class="hidden mb-8 p-6 bg-amber-50/80 border border-amber-200 text-amber-900 rounded-2xl text-xl font-medium leading-relaxed">
+                        <div id="hint-${secId}-${qIndex}" class="hidden mb-6 p-5 bg-amber-50/50 border border-amber-100 text-amber-800 rounded-2xl text-lg sm:text-xl font-medium leading-relaxed">
                             ${q.hint}
                         </div>
 
                         <!-- استخدام flex-wrap لضمان عدم خروج الأزرار عند التكبير 200% -->
                         <div class="flex flex-wrap gap-4 mb-2" id="opts-${secId}-${qIndex}">
                             ${displayOptions.map(opt => `
-                                <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[180px] text-2xl font-bold bg-slate-50 border-2 border-slate-200 text-slate-800 py-5 px-8 rounded-2xl text-center outline-none btn-interact">
+                                <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[160px] text-lg sm:text-xl font-semibold bg-slate-50 border-2 border-slate-200 text-slate-700 py-4 px-6 rounded-2xl text-center outline-none btn-interact hover:bg-slate-100 transition-colors">
                                     ${opt}
                                 </button>
                             `).join('')}
                         </div>
 
-                        <div id="feedback-${secId}-${qIndex}" class="hidden mt-10 pt-8 border-t border-slate-200">
-                            <div id="res-msg-${secId}-${qIndex}" class="font-bold text-3xl mb-4 flex items-center gap-3"></div>
-                            <div class="text-slate-800 font-medium leading-relaxed text-2xl bg-slate-50 p-8 rounded-2xl border border-slate-200">
-                                <span class="font-bold text-brand-800 text-2xl block mb-3 underline decoration-brand-300 underline-offset-8">التوضيح:</span>
+                        <div id="feedback-${secId}-${qIndex}" class="hidden mt-8 pt-6 border-t border-slate-100">
+                            <div id="res-msg-${secId}-${qIndex}" class="font-semibold text-2xl mb-4 flex items-center gap-2"></div>
+                            <div class="text-slate-700 font-medium leading-relaxed text-lg sm:text-xl bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                <span class="font-semibold text-brand-700 text-xl block mb-2 underline decoration-brand-200 underline-offset-8">التوضيح:</span>
                                 ${q.exp}
                             </div>
                         </div>
@@ -516,7 +514,7 @@
             container.innerHTML = html;
         }
 
-        // التلميح يظل قابلاً للضغط سواء قبل الإجابة أو بعدها (لأن الإخفاء يتم لأزرار الخيارات فقط)
+        // التلميح يظل قابلاً للضغط سواء قبل الإجابة أو بعدها
         function toggleHint(secId, qIdx) {
             const hintDiv = document.getElementById(`hint-${secId}-${qIdx}`);
             hintDiv.classList.toggle('hidden');
@@ -540,25 +538,25 @@
             buttons.forEach(btn => {
                 btn.classList.add('disabled-btn');
                 if (btn.innerText.trim() === q.correct) {
-                    btn.classList.remove('bg-slate-50', 'text-slate-800', 'border-slate-200');
-                    btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800');
+                    btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200', 'hover:bg-slate-100');
+                    btn.classList.add('bg-emerald-50', 'border-emerald-400', 'text-emerald-800');
                 } else if (btn.innerText.trim() === selectedOpt && !isCorrect) {
-                    btn.classList.remove('bg-slate-50', 'text-slate-800', 'border-slate-200');
-                    btn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-800');
+                    btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200', 'hover:bg-slate-100');
+                    btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-800');
                 } else {
-                    btn.classList.add('opacity-50');
+                    btn.classList.add('opacity-40');
                 }
             });
 
-            // إظهار التغذية الراجعة (إجابة صحيحة/خاطئة دون استخدام صواب/خطأ)
+            // إظهار التغذية الراجعة
             const feedbackDiv = document.getElementById(`feedback-${secId}-${qIdx}`);
             const msg = document.getElementById(`res-msg-${secId}-${qIdx}`);
             feedbackDiv.classList.remove('hidden');
             
             if (isCorrect) {
-                msg.innerHTML = `<svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg><span class="text-emerald-700">(إجابة صحيحة)</span>`;
+                msg.innerHTML = `<svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg><span class="text-emerald-700">(إجابة صحيحة)</span>`;
             } else {
-                msg.innerHTML = `<svg class="w-10 h-10 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg><span class="text-rose-700">(إجابة خاطئة)</span>`;
+                msg.innerHTML = `<svg class="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg><span class="text-rose-700">(إجابة خاطئة)</span>`;
             }
 
             document.getElementById(`score-${secId}`).innerText = toEasternNum(state.score);
@@ -601,7 +599,7 @@
             }
         }
 
-        // إظهار نافذة التقييم النهائي المستقلة في نهاية التطبيق
+        // إظهار نافذة التقييم النهائي
         function showFinalEvaluation() {
             let totalScore = 0;
             for (let k in appState.sections) {
@@ -651,3 +649,7 @@
     </script>
 </body>
 </html>
+
+
+
+
