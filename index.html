@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إنّ وأخواتها - العربية السهلة</title>
     
-    <!-- علامات الميتا (Meta Tags) لتحسين مشاركة الروابط على وسائل التواصل -->
     <meta name="description" content="مراجعة وتدريبات تفاعلية ممتعة لدرس (إنّ وأخواتها) من قناة العربية السهلة مع الأستاذ محمود صلاح.">
     <meta property="og:title" content="إنّ وأخواتها - العربية السهلة">
     <meta property="og:description" content="مراجعة وتدريبات تفاعلية ممتعة لدرس (إنّ وأخواتها) من قناة العربية السهلة مع الأستاذ محمود صلاح.">
     <meta property="og:type" content="website">
     
-    <!-- 1. إعدادات الخطوط (Readex Pro حصرياً بأوزان مناسبة) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- 2. إطار العمل (Tailwind CSS CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -41,7 +38,6 @@
         }
     </script>
 
-    <!-- 3. التنسيقات الإضافية والمؤثرات البصرية -->
     <style>
         /* التمرير السلس لكامل الصفحة */
         html { scroll-behavior: smooth; }
@@ -75,25 +71,15 @@
         /* منع التفاعل مع الخيارات بعد الإجابة */
         .disabled-btn { pointer-events: none; }
         
-        /* نافذة التقييم النهائي (خلفية ضبابية) */
-        .modal-overlay {
-            background-color: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(8px);
-        }
-
-        /* مؤثرات تفاعلية ناعمة (Micro-interactions) */
+        /* مؤثرات تفاعلية ناعمة (Micro-interactions) للأزرار فقط وليس التبويبات */
         .btn-interact { transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease; }
         .btn-interact:active { transform: scale(0.96); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
 
-    <!-- ========================================== -->
-    <!-- 4. الترويسة (Header) تختفي مع التمرير      -->
-    <!-- ========================================== -->
     <header class="w-full py-6 flex flex-col items-center justify-center bg-transparent border-b border-slate-100">
         <a href="https://www.youtube.com/egysalah" target="_blank" class="flex flex-row items-center gap-2 no-underline outline-none">
-            <!-- النص ثم الشعار -->
             <span class="text-2xl font-bold text-slate-900">العربية السهلة</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" class="w-7 h-7 shrink-0">
                 <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
@@ -102,62 +88,24 @@
         <p class="text-slate-500 mt-1 text-lg font-bold">محمود صلاح</p>
     </header>
 
-    <!-- ========================================== -->
-    <!-- 5. شريط التنقل والتقدم (Sticky Tabs)       -->
-    <!-- ========================================== -->
     <nav class="w-full bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 flex flex-col border-b border-slate-200" id="sticky-nav">
-        <div class="max-w-5xl mx-auto px-4 w-full">
-            <!-- تبويبات نحيفة جداً (py-1)، لا تلتف (whitespace-nowrap)، تمرير أفقي، وتوسيط على الشاشات الكبيرة -->
-            <ul id="tabs-list" class="flex justify-start md:justify-center gap-2 sm:gap-4 overflow-x-auto flex-nowrap hide-scrollbar py-1 w-full">
-                <!-- تُضاف التبويبات برمجيًا هنا -->
-            </ul>
+        <div class="w-full">
+            <ul id="tabs-list" class="flex flex-nowrap mx-auto w-max max-w-full overflow-x-auto px-4 hide-scrollbar py-1 gap-2 sm:gap-4">
+                </ul>
         </div>
-        <!-- شريط التقدم المدمج كخط نحيف جداً (2px) أسفل التبويبات مباشرة -->
         <div class="w-full h-[2px] bg-slate-200">
             <div id="section-progress-bar" class="bg-brand-600 h-full w-0 shadow-[0_0_5px_rgba(2,132,199,0.4)] transition-all duration-500 ease-out"></div>
         </div>
     </nav>
 
-    <!-- ========================================== -->
-    <!-- 6. المحتوى الرئيسي                        -->
-    <!-- ========================================== -->
-    <main class="flex-grow w-full max-w-4xl mx-auto px-4 pb-20" id="main-content">
-        <!-- تُضاف الأقسام والأسئلة برمجيًا هنا -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 pb-20">
+        <div id="main-content">
+            </div>
+
+        <div id="final-evaluation-container" class="hidden mt-12 mb-8 bg-white p-8 sm:p-10 rounded-[2rem] shadow-sm border border-brand-200 text-center transform transition-all duration-500 opacity-0 translate-y-4">
+            </div>
     </main>
 
-    <!-- ========================================== -->
-    <!-- نافذة التقييم النهائي الشامل (Modal)       -->
-    <!-- ========================================== -->
-    <div id="final-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 modal-overlay opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 transform scale-95 transition-transform duration-300" id="modal-content">
-            <div class="text-center mb-6">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-brand-50 text-brand-600 rounded-full mb-4 shadow-sm border border-brand-100">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <h2 class="text-3xl font-bold text-slate-800 mb-2">التقييم الشامل</h2>
-                <p class="text-slate-600 text-xl font-medium">لقد أتممت جميع التدريبات، إليك نتيجتك النهائية:</p>
-            </div>
-            
-            <div class="bg-slate-50 rounded-2xl p-6 mb-6 border border-slate-200">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-xl font-semibold text-slate-700">الدرجة الإجمالية:</span>
-                    <span id="final-score-display" class="text-2xl font-bold text-brand-600">٠ / ٠</span>
-                </div>
-                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                    <div id="final-progress-bar" class="bg-brand-500 h-full rounded-full w-0 transition-all duration-1000"></div>
-                </div>
-                <p id="final-message" class="mt-6 text-center text-xl font-semibold text-slate-700 leading-relaxed"></p>
-            </div>
-            
-            <button onclick="closeFinalModal()" class="w-full bg-slate-800 text-white text-xl font-semibold py-4 rounded-xl hover:bg-slate-700 transition-colors duration-300 shadow-md btn-interact">
-                إغلاق والعودة للتدريبات
-            </button>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- 7. التذييل (Footer)                        -->
-    <!-- ========================================== -->
     <footer class="w-full py-8 mt-auto border-t border-slate-200">
         <div class="text-center px-4">
             <a href="https://www.youtube.com/egysalah" target="_blank" class="text-slate-500 hover:text-brand-600 font-medium text-sm transition-colors outline-none block">
@@ -166,11 +114,8 @@
         </div>
     </footer>
 
-    <!-- ========================================== -->
-    <!-- 8. المنطق البرمجي (JavaScript)             -->
-    <!-- ========================================== -->
     <script>
-        // دالة تحويل الأرقام الإنجليزية للعرض باللغة العربية (١، ٢، ٣)
+        // دالة تحويل الأرقام الإنجليزية للعرض باللغة العربية
         const toEasternNum = (num) => {
             return num.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
         };
@@ -185,11 +130,11 @@
             return shuffled;
         };
 
-        // قاعدة بيانات المحتوى كاملة ومدققة لغويًا 
+        // قاعدة بيانات المحتوى
         const quizData = [
             {
                 id: 'review',
-                title: 'المراجعة',
+                title: 'قبل أن نبدأ',
                 type: 'summary',
                 questions: []
             },
@@ -256,6 +201,8 @@
         };
 
         function initAppState() {
+            appState.sections = {};
+            appState.totalQuestionsCount = 0;
             quizData.forEach(sec => {
                 const qCount = sec.questions ? sec.questions.length : 0;
                 appState.sections[sec.id] = {
@@ -274,6 +221,8 @@
         function switchTab(targetId) {
             // إخفاء كافة التبويبات وإزالة التنسيق النشط
             document.querySelectorAll('.tab-content').forEach(p => p.classList.remove('active'));
+            
+            // إزالة تنسيق النشاط من كل الأزرار بدون مؤثرات Hover
             document.querySelectorAll('.tab-btn').forEach(b => {
                 b.classList.remove('border-brand-700', 'text-brand-800', 'bg-brand-50');
                 b.classList.add('border-transparent', 'text-slate-600');
@@ -288,16 +237,12 @@
             if (activeBtn) {
                 activeBtn.classList.remove('border-transparent', 'text-slate-600');
                 activeBtn.classList.add('border-brand-700', 'text-brand-800', 'bg-brand-50');
-                // تمرير زر التبويب ليكون مرئياً في الجوال بشكل أفقي وسلس
                 activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
 
             // تحديث شريط التقدم للقسم الجديد
             updateProgressBar(targetId);
 
-            // =====================================
-            // سلوك التمرير (Scrolling Behavior)
-            // =====================================
             // الانتقال بسلاسة إلى أعلى محتوى القسم
             setTimeout(() => {
                 if (panel) {
@@ -326,11 +271,11 @@
                 const isFirst = index === 0;
                 const isLast = index === quizData.length - 1;
 
-                // إنشاء أزرار التبويبات
+                // إنشاء أزرار التبويبات (بدون Hover)
                 const li = document.createElement('li');
                 li.className = 'whitespace-nowrap shrink-0';
                 li.innerHTML = `
-                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-5 sm:px-6 py-1 text-lg font-semibold border-b-[3px] outline-none btn-interact ${isFirst ? 'border-brand-700 text-brand-800 bg-brand-50' : 'border-transparent text-slate-600'}">
+                    <button onclick="switchTab('${sec.id}')" id="btn-${sec.id}" class="tab-btn px-5 sm:px-6 py-1 text-xl font-semibold border-b-[3px] outline-none ${isFirst ? 'border-brand-700 text-brand-800 bg-brand-50' : 'border-transparent text-slate-600'}">
                         ${sec.title}
                     </button>
                 `;
@@ -341,7 +286,6 @@
                 sectionDiv.id = `panel-${sec.id}`;
                 sectionDiv.className = `tab-content pt-8 ${isFirst ? 'active' : ''}`;
 
-                // إضافة عنوان الدرس ليكون متوسطاً في جميع الأقسام (بحجم متناسق وألوان مريحة)
                 let subtitleHtml = '';
                 if (sec.type === 'summary') {
                     subtitleHtml = '<p class="text-slate-600 text-xl sm:text-2xl leading-relaxed max-w-3xl mx-auto font-medium">مراجعة سريعة لأهم قواعد الدرس قبل البدء في التدريبات.</p>';
@@ -359,10 +303,9 @@
                 if (sec.type === 'summary') {
                     sectionDiv.innerHTML += `
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <!-- البطاقة الأولى: العمل والتأثير -->
                             <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200">
                                 <div class="flex items-center gap-4 mb-5">
-                                    <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                                    <div class="bg-blue-100 p-3 rounded-full text-blue-600 shrink-0">
                                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </div>
                                     <h3 class="text-xl sm:text-2xl font-semibold text-slate-700">العمل والتأثير</h3>
@@ -372,10 +315,9 @@
                                 </p>
                             </div>
 
-                            <!-- البطاقة الثانية: معاني الحروف -->
                             <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200 md:row-span-2">
                                 <div class="flex items-center gap-4 mb-5">
-                                    <div class="bg-amber-100 p-3 rounded-full text-amber-600">
+                                    <div class="bg-amber-100 p-3 rounded-full text-amber-600 shrink-0">
                                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                                     </div>
                                     <h3 class="text-xl sm:text-2xl font-semibold text-slate-700">معاني الحروف</h3>
@@ -389,10 +331,9 @@
                                 </ul>
                             </div>
 
-                            <!-- البطاقة الثالثة: أنواع الخبر -->
                             <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200">
                                 <div class="flex items-center gap-4 mb-5">
-                                    <div class="bg-emerald-100 p-3 rounded-full text-emerald-600">
+                                    <div class="bg-emerald-100 p-3 rounded-full text-emerald-600 shrink-0">
                                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                                     </div>
                                     <h3 class="text-xl sm:text-2xl font-semibold text-slate-700">أنواع الخبر</h3>
@@ -413,7 +354,7 @@
                         </div>
                     `;
                     mainContent.appendChild(sectionDiv);
-                    return; // إنهاء حلقة هذا القسم لتجنب رسم أزرار التقييم والأسئلة لتبويب المراجعة
+                    return;
                 }
 
                 // حاوية الأسئلة
@@ -421,34 +362,27 @@
                 questionsContainer.id = `q-container-${sec.id}`;
                 sectionDiv.appendChild(questionsContainer);
 
-                // أزرار نهاية القسم
+                // أزرار نهاية القسم (بدون زر النتيجة النهائية لأنه يظهر آلياً)
                 let footerBtns = `
-                    <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-6 py-4 rounded-2xl font-semibold flex items-center gap-3 text-xl sm:text-2xl outline-none btn-interact shadow-sm">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    <button onclick="retrySection('${sec.id}')" class="bg-slate-800 text-white px-6 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 text-xl sm:text-2xl outline-none btn-interact shadow-sm flex-grow sm:flex-grow-0">
+                        <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                         إعادة المحاولة
                     </button>
                 `;
                 
                 if (!isLast) {
                     footerBtns += `
-                        <button onclick="switchTab('${quizData[index + 1].id}')" class="bg-brand-600 text-white px-6 py-4 rounded-2xl font-semibold flex items-center gap-3 text-xl sm:text-2xl outline-none btn-interact shadow-sm">
+                        <button onclick="switchTab('${quizData[index + 1].id}')" class="bg-brand-600 text-white px-6 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 text-xl sm:text-2xl outline-none btn-interact shadow-sm flex-grow sm:flex-grow-0">
                             القسم التالي
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        </button>
-                    `;
-                } else {
-                    footerBtns += `
-                        <button onclick="showFinalEvaluation()" id="btn-final-eval" class="hidden bg-emerald-600 text-white px-6 py-4 rounded-2xl font-semibold flex items-center gap-3 text-xl sm:text-2xl outline-none btn-interact shadow-sm">
-                            عرض النتيجة النهائية
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                         </button>
                     `;
                 }
 
                 sectionDiv.innerHTML += `
                     <div class="flex flex-col sm:flex-row items-center justify-between mt-10 p-6 sm:p-8 bg-white rounded-[2rem] shadow-sm border border-slate-200">
-                        <div class="text-2xl sm:text-3xl font-semibold text-slate-700 mb-6 sm:mb-0">
-                            درجة القسم: <span id="score-${sec.id}" class="text-brand-600">٠</span> / ${toEasternNum(sec.questions.length)}
+                        <div class="text-2xl sm:text-3xl font-semibold text-slate-700 mb-6 sm:mb-0 text-center sm:text-right">
+                            درجة القسم: <span id="score-${sec.id}" class="text-brand-600 font-bold">٠</span> / ${toEasternNum(sec.questions.length)}
                         </div>
                         <div class="flex flex-wrap items-center justify-center gap-4 w-full sm:w-auto">
                             ${footerBtns}
@@ -457,15 +391,12 @@
                 `;
                 
                 mainContent.appendChild(sectionDiv);
-                
-                // رسم الأسئلة مع الترتيب العشوائي للخيارات
                 renderQuestionsHTML(sec.id);
             });
             
             if (quizData.length > 0) updateProgressBar(quizData[0].id);
         }
 
-        // دالة رسم أسئلة القسم وتطبيق Shuffle على الخيارات
         function renderQuestionsHTML(secId) {
             const sec = quizData.find(s => s.id === secId);
             if (sec.type === 'summary') return;
@@ -473,22 +404,21 @@
             const container = document.getElementById(`q-container-${secId}`);
             
             const html = sec.questions.map((q, qIndex) => {
-                // ترتيب عشوائي لأسئلة الاختيار، وترتيب ثابت لأسئلة (صواب / خطأ)
                 let displayOptions = [...q.options];
                 if (q.type === 'tf') {
-                    displayOptions = ['صواب', 'خطأ']; // التثبيت الصارم للترتيب
+                    displayOptions = ['صواب', 'خطأ'];
                 } else {
-                    displayOptions = shuffleArray(displayOptions); // ترتيب عشوائي للاختيارات المتعددة
+                    displayOptions = shuffleArray(displayOptions);
                 }
 
                 return `
                     <div class="bg-white p-6 sm:p-10 rounded-[2rem] shadow-sm border border-slate-200 mb-8" id="card-${secId}-${qIndex}">
                         <div class="flex flex-col sm:flex-row justify-between items-start gap-5 mb-8">
                             <h3 class="text-xl sm:text-2xl font-semibold text-slate-800 leading-relaxed flex-1">
-                                <span class="text-brand-600 ml-1 font-semibold">السؤال ${toEasternNum(qIndex + 1)}:</span>
+                                <span class="text-brand-600 ml-1 font-semibold whitespace-nowrap">السؤال ${toEasternNum(qIndex + 1)}:</span>
                                 ${q.q}
                             </h3>
-                            <button onclick="toggleHint('${secId}', ${qIndex})" class="flex items-center gap-2 text-amber-600 bg-amber-50/80 px-5 py-2.5 rounded-xl font-medium border border-amber-200 text-xl sm:text-2xl outline-none shrink-0 btn-interact">
+                            <button onclick="toggleHint('${secId}', ${qIndex})" class="flex items-center justify-center gap-2 text-amber-600 bg-amber-50/80 px-5 py-3 rounded-xl font-medium border border-amber-200 text-xl sm:text-2xl outline-none shrink-0 btn-interact w-full sm:w-auto mt-4 sm:mt-0">
                                 💡 تلميح
                             </button>
                         </div>
@@ -497,10 +427,9 @@
                             ${q.hint}
                         </div>
 
-                        <!-- استخدام flex-wrap لضمان عدم خروج الأزرار عند التكبير 200% -->
-                        <div class="flex flex-wrap gap-4 mb-2" id="opts-${secId}-${qIndex}">
+                        <div class="flex flex-wrap justify-center mx-auto max-w-2xl gap-4 mb-2" id="opts-${secId}-${qIndex}">
                             ${displayOptions.map(opt => `
-                                <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[160px] text-xl sm:text-2xl font-semibold bg-slate-50 border-2 border-slate-200 text-slate-700 py-4 px-6 rounded-2xl text-center outline-none btn-interact hover:bg-slate-100 transition-colors">
+                                <button onclick="selectAnswer('${secId}', ${qIndex}, '${opt}')" class="opt-btn flex-grow sm:flex-grow-0 min-w-[160px] text-xl sm:text-2xl font-semibold bg-slate-50 border-2 border-slate-200 text-slate-700 py-4 px-6 rounded-2xl text-center outline-none btn-interact transition-colors">
                                     ${opt}
                                 </button>
                             `).join('')}
@@ -520,16 +449,14 @@
             container.innerHTML = html;
         }
 
-        // التلميح يظل قابلاً للضغط سواء قبل الإجابة أو بعدها
         function toggleHint(secId, qIdx) {
             const hintDiv = document.getElementById(`hint-${secId}-${qIdx}`);
             hintDiv.classList.toggle('hidden');
         }
 
-        // تقييم الإجابة وعرض التغذية الراجعة
         function selectAnswer(secId, qIdx, selectedOpt) {
             const state = appState.sections[secId];
-            if (state.answeredQuestions.has(qIdx)) return; // منع تغيير الإجابة
+            if (state.answeredQuestions.has(qIdx)) return; 
             
             state.answeredQuestions.add(qIdx);
             state.answeredCount += 1;
@@ -539,30 +466,28 @@
             
             if (isCorrect) state.score += 1;
 
-            // تنسيق الأزرار (إيقاف الضغط عنها فقط)
             const buttons = document.getElementById(`opts-${secId}-${qIdx}`).querySelectorAll('button');
             buttons.forEach(btn => {
                 btn.classList.add('disabled-btn');
                 if (btn.innerText.trim() === q.correct) {
-                    btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200', 'hover:bg-slate-100');
+                    btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
                     btn.classList.add('bg-emerald-50', 'border-emerald-400', 'text-emerald-800');
                 } else if (btn.innerText.trim() === selectedOpt && !isCorrect) {
-                    btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200', 'hover:bg-slate-100');
+                    btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
                     btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-800');
                 } else {
                     btn.classList.add('opacity-40');
                 }
             });
 
-            // إظهار التغذية الراجعة
             const feedbackDiv = document.getElementById(`feedback-${secId}-${qIdx}`);
             const msg = document.getElementById(`res-msg-${secId}-${qIdx}`);
             feedbackDiv.classList.remove('hidden');
             
             if (isCorrect) {
-                msg.innerHTML = `<svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg><span class="text-emerald-700">(إجابة صحيحة)</span>`;
+                msg.innerHTML = `<svg class="w-8 h-8 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg><span class="text-emerald-700">(إجابة صحيحة)</span>`;
             } else {
-                msg.innerHTML = `<svg class="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg><span class="text-rose-700">(إجابة خاطئة)</span>`;
+                msg.innerHTML = `<svg class="w-8 h-8 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg><span class="text-rose-700">(إجابة خاطئة)</span>`;
             }
 
             document.getElementById(`score-${secId}`).innerText = toEasternNum(state.score);
@@ -570,7 +495,6 @@
             checkOverallCompletion();
         }
 
-        // إعادة محاولة القسم
         function retrySection(secId) {
             const state = appState.sections[secId];
             state.score = 0;
@@ -579,72 +503,83 @@
 
             document.getElementById(`score-${secId}`).innerText = toEasternNum(0);
             updateProgressBar(secId);
-
-            // إعادة بناء الأسئلة لضمان العشوائية للخيارات (Shuffle) من جديد
-            renderQuestionsHTML(secId);
             
-            // الانتقال والتمرير إلى أعلى القسم بدقة
+            // إخفاء التقييم النهائي لو كان ظاهراً
+            hideFinalEvaluation();
+
+            renderQuestionsHTML(secId);
             switchTab(secId);
             checkOverallCompletion();
         }
 
-        // التحقق من إنهاء جميع التدريبات لإظهار زر التقييم النهائي
+        // ==========================================
+        // منطق النتيجة الختامية وزر ابدأ من جديد
+        // ==========================================
         function checkOverallCompletion() {
             let totalAnswered = 0;
             for (let k in appState.sections) {
                 totalAnswered += appState.sections[k].answeredCount;
             }
-            
-            const btn = document.getElementById('btn-final-eval');
-            if (btn) {
-                if (totalAnswered === appState.totalQuestionsCount) {
-                    btn.classList.remove('hidden');
-                } else {
-                    btn.classList.add('hidden');
-                }
+            if (totalAnswered === appState.totalQuestionsCount && appState.totalQuestionsCount > 0) {
+                showFinalEvaluation();
             }
         }
 
-        // إظهار نافذة التقييم النهائي
         function showFinalEvaluation() {
             let totalScore = 0;
             for (let k in appState.sections) {
                 totalScore += appState.sections[k].score;
             }
-            
             const percentage = Math.round((totalScore / appState.totalQuestionsCount) * 100);
-            document.getElementById('final-score-display').innerText = `${toEasternNum(totalScore)} / ${toEasternNum(appState.totalQuestionsCount)}`;
             
             let msg = percentage === 100 ? 'مستوى متميز! لقد أتقنت جميع قواعد الدرس ببراعة.' : 
                       percentage >= 85 ? 'مستوى جيد جدًا! استيعابك للقواعد ممتاز.' : 
                       percentage >= 70 ? 'مستوى جيد! إجاباتك موفقة، راجع التوضيحات لتلافي الأخطاء البسيطة.' : 
                       'تحتاج إلى مراجعة الدرس بتركيز أكبر، لا تيأس وحاول من جديد!';
+
+            const container = document.getElementById('final-evaluation-container');
             
-            document.getElementById('final-message').innerText = msg;
+            container.innerHTML = `
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-brand-50 text-brand-600 rounded-full mb-6 shadow-sm border border-brand-100">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-800 mb-6">التقييم الشامل</h2>
+                <div class="bg-slate-50 rounded-3xl p-6 sm:p-10 mb-8 border border-slate-200 max-w-2xl mx-auto">
+                    <div class="flex justify-between items-center mb-5">
+                        <span class="text-xl sm:text-2xl font-semibold text-slate-700">الدرجة الإجمالية:</span>
+                        <span class="text-3xl sm:text-4xl font-bold text-brand-600">${toEasternNum(totalScore)} <span class="text-2xl text-slate-400 mx-1">/</span> ${toEasternNum(appState.totalQuestionsCount)}</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden mb-6">
+                        <div class="bg-brand-500 h-full rounded-full transition-all duration-1000 ease-out" style="width: ${percentage}%"></div>
+                    </div>
+                    <p class="text-xl sm:text-2xl font-semibold text-slate-800 leading-relaxed">${msg}</p>
+                </div>
+                <button onclick="resetAll()" class="bg-slate-800 text-white px-10 py-5 rounded-2xl font-semibold flex items-center justify-center gap-3 text-xl sm:text-2xl outline-none shadow-md btn-interact mx-auto transition-colors duration-300">
+                    <svg class="w-8 h-8 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    ابدأ من جديد
+                </button>
+            `;
             
-            const modal = document.getElementById('final-modal');
-            const modalContent = document.getElementById('modal-content');
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => { 
-                modal.classList.remove('opacity-0'); 
-                modalContent.classList.remove('scale-95'); 
-                document.getElementById('final-progress-bar').style.width = `${percentage}%`; 
-            }, 10);
+            container.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('opacity-0', 'translate-y-4');
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 50);
         }
 
-        // إغلاق النافذة
-        function closeFinalModal() {
-            const modal = document.getElementById('final-modal');
-            const modalContent = document.getElementById('modal-content');
-            
-            modal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95');
-            
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.getElementById('final-progress-bar').style.width = '0%';
-            }, 300);
+        function hideFinalEvaluation() {
+            const container = document.getElementById('final-evaluation-container');
+            if (container) {
+                container.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                container.innerHTML = '';
+            }
+        }
+
+        function resetAll() {
+            initAppState();
+            hideFinalEvaluation();
+            renderApp();
+            switchTab(quizData[0].id);
         }
 
         // تهيئة وبدء التطبيق
@@ -655,13 +590,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
